@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" id="ng-app">
+<head>
+    <meta charset="utf-8">
+    <title>FIC OnLan 2014</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <link rel="shortcut icon" href="ico/favicon.png" type="image/png" />
+    <style>
+        body {
+            padding-top: 80px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+			<a data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle" href="#"><img src="img/collapse_arrow_alt.png" height="30" /></a>
+           
+            <a class="navbar-brand" href="#"><img src="img/minilogo.png" height="30" /></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+				<li><a href="#/">Inicio</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div ng-view class="col-sm-12"></div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="js/angularJS/angular-route.js"></script>
+
+    <script src="app.js"></script>
+    <script>angular.bootstrap(document, ['appFICOnLan']);</script>
+</body>
+</html>
