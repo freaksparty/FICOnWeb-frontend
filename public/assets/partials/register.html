@@ -1,0 +1,90 @@
+<div id="middle" class="container">
+	<div class="white">
+			<div class="row">
+				<!-- REGISTER -->
+				<div class="col-xs-12">
+					<h4><strong>Registro</strong></h4>
+					<!-- alert failed -->
+					<div class="alert alert-danger" ng-show="errors.register">
+						<span ng-show="errors.registerCode == '1'">La sesión ha caducado, vuelva a intentarlo</span>
+						<span ng-show="errors.registerCode == '3'">El usuario o dni introducido ya existe en nuestra base de datos</span>
+					</div>
+				</div>
+				<form name="formRegister">	
+					<div class="col-md-6">				
+						<div class="row">
+							<div class="form-group">
+								<div class="col-md-12">
+									<label>Usuario</label>
+									<input ng-class="{formInvalid: formRegister.inputLogin.$invalid}" type="text" class="form-control" name="inputLogin" ng-model="view.login" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group">
+								<div class="col-md-6">
+									<label>Password</label>
+									<input ng-class="{formInvalid: formRegister.inputPass.$invalid}" name="inputPass" type="password" class="form-control" ng-model="view.pass" ng-minlength="5" required>
+								</div>
+								<div class="col-md-6">
+									<label>Repetir Password</label>
+									<input type="password" ng-class="{formInvalid: ((formRegister.inputPass2.$invalid) || (!validatePassword(view.pass, view.pass2)))}" name="inputPass2" class="form-control" ng-model="view.pass2" ng-minlength="5" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group">
+								<div class="col-md-12">
+									<label>E-mail</label>
+									<input type="email" ng-class="{formInvalid: formRegister.inputEmail.$invalid}" name="inputEmail" class="form-control" ng-model="view.email" required>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="form-group">
+								<div class="col-md-12">
+									<label>Nombre y Apellidos</label>
+									<input type="text" ng-class="{formInvalid: formRegister.inputName.$invalid}" name="inputName" class="form-control" ng-model="view.name" required>
+								</div>
+							</div>
+						</div>	
+						<div class="row">
+							<div class="form-group">
+								<div class="col-md-12">
+									<label>DNI</label>
+									<input type="text" ng-class="{formInvalid: formRegister.inputDni.$invalid}" name="inputDni" class="form-control" ng-model="view.dni" required>
+								</div>
+							</div>
+						</div>	
+						<div class="row">
+							<div class="form-group">
+								<div class="col-md-6">
+									<label>Teléfono</label>
+									<input type="number" ng-class="{formInvalid: formRegister.inputPhone.$invalid}" name="inputPhone" class="form-control" ng-model="view.phone" ng-minlength="9" ng-maxlength="9" required>
+								</div>
+								<div class="col-md-6">
+									<label>Talla de camiseta</label>
+									<select class="form-control" ng-class="{formInvalid: formRegister.inputShirt.$invalid}" name="inputShirt" ng-model="view.shirtSize" required>
+										<option>XS</option>
+										<option>S</option>
+										<option>M</option>
+										<option>L</option>
+										<option>XL</option>
+										<option>XXL</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<button class="btn btn-primary pull-right push-bottom" ng-click="register(view.login, view.pass, view.pass2, view.email, view.name, view.dni, view.phone, view.shirtSize)" ng-disabled="!validatePassword(view.pass, view.pass2) || formRegister.$invalid">Enviar</button>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- /REGISTER -->
+			</div>
+	</div>
+</div>
