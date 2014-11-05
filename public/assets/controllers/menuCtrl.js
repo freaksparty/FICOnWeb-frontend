@@ -11,7 +11,8 @@
 					$cookieStore.remove('FICOnCookie');
 					$window.location.reload();
 				}).error(function (data, status, headers, config) {
-					console.log('error al cerrar sesión');
+					$cookieStore.remove('FICOnCookie');
+					$window.location.reload();
 				});
 			} else {
 				$rootScope.createSession();

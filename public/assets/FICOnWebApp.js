@@ -21,6 +21,10 @@ FICOnWeb.config(function ($routeProvider) {
 			controller: 'registerCtrl',
             templateUrl: 'assets/partials/register.html'
         })
+		.when('/profile', {
+			controller: 'profileCtrl',
+            templateUrl: 'assets/partials/profile.html'
+        })
         .otherwise({
             redirectTo: '/home'
         });
@@ -31,6 +35,24 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', function ($rootScope, $http
 	$rootScope.vars.logged = false;
 	$rootScope.vars.userName = "";
 	
+	$rootScope.isNumber = function (number) {
+		if (isNaN(number)) {
+			return false;
+		} else {
+			return true;
+		}
+	};
+	
+	$rootScope.validatePassword = function (pass, pass2) {
+		if ((pass != "") && (pass2 != "")) {
+			if (pass == pass2) {
+				return true;
+			} else {
+				return false;
+			}
+		} else return false;
+	}
+
 	$rootScope.createSession = function() {
 		$http.get('http://ficonlan.es:81/api/session')
 		.success(function(data, status, headers, config) {

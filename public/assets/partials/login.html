@@ -1,21 +1,15 @@
 <div id="middle" class="container">
     <div class="white">
-
         <div class="row">
-
             <!-- LOGIN -->
             <div class="col-md-6">
-
                 <h4><strong>Entrar</strong></h4>
-
                 <form>
-
                     <!-- alert failed -->
                     <div class="alert alert-danger" ng-show="errors.login">
                         <span ng-show="errors.loginCode == '4'"><strong>Usuario</strong> y/o <strong>Contraseña</strong> inválido!</span>
-						<span ng-show="errors.loginCode == '1'"><strong>La sesión ha caducado, vuelva a intentarlo</strong></span>
+						<span ng-show="errors.loginCode == '1'">La sesión ha caducado, vuelva a intentarlo</span>
                     </div>
-
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-12">
@@ -39,62 +33,46 @@
                             <button class="btn btn-primary pull-right" ng-click="login(view.user, view.password)">Entrar</button>
 						</div>
                     </div>
-
                 </form>
-
             </div>
             <!-- /LOGIN -->
-
             <!-- PASSWORD -->
             <div class="col-md-6">
-
                 <h4>Olvidaste la <strong>contraseña</strong>?</h4>
-                
 				<!-- alert success -->
                 <div ng-show="view.sendRecover" class="alert alert-success">
                     <strong>Nuevo password enviado!</strong> Comprueba tu E-mail!
                 </div>
-
                 <!-- alert failed -->
                 <div ng-show="errors.forgot" class="alert alert-danger">
-                    <strong>E-mail</strong> no encontrado!
+					<span ng-show="errors.forgotCode == '1'">La sesión ha caducado, vuelva a intentarlo</span>
+                    <span ng-show="errors.forgotCode == '98'"><strong>E-mail</strong> no encontrado!</span>
                 </div> 
-
                 <!-- password form -->
                 <label class="font300">Escribe tu E-mail</label>
-                <form class="input-group">
-                    <input type="text" class="form-control"  />
+                <form class="input-group" name="formForgotten">
+                    <input type="email" class="form-control" ng-model="view.mail" required/>
                     <span class="input-group-btn">
-                        <button class="btn btn-primary">ENVIAR</button>
+                        <button class="btn btn-primary" ng-disabled="formForgotten.$invalid" ng-click="sendForgotten(view.mail)">ENVIAR</button>
                     </span>
                 </form>
-
             </div>
             <!-- /PASSWORD -->
-
         </div>
-
         <hr />
-
         <!-- CALLOUT -->
         <div class="alert alert-default fade in">
-
             <div class="row">
-
                 <div class="col-md-9 col-sm-8"><!-- left text -->
                     <h4 class="nomargin">Nuevo <strong>Usuario</strong></h4>
                     <p class="nomargin">
                         Eres nuevo y aún no tienes cuenta?
                     </p>
                 </div><!-- /left text -->
-
-
                 <div class="col-md-3 col-sm-4 text-right"><!-- right btn -->
                     <a href="#/register" class="btn btn-primary btn-lg">REGÍSTRATE</a>
                 </div><!-- /right btn -->
-
             </div>
-
         </div>
         <!-- /CALLOUT -->
     </div>

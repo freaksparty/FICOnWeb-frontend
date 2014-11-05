@@ -26,11 +26,11 @@
 						<div class="row">
 							<div class="form-group">
 								<div class="col-md-6">
-									<label>Password</label>
+									<label>Contraseña</label>
 									<input ng-class="{formInvalid: formRegister.inputPass.$invalid}" name="inputPass" type="password" class="form-control" ng-model="view.pass" ng-minlength="5" required>
 								</div>
 								<div class="col-md-6">
-									<label>Repetir Password</label>
+									<label>Repetir Contraseña</label>
 									<input type="password" ng-class="{formInvalid: ((formRegister.inputPass2.$invalid) || (!validatePassword(view.pass, view.pass2)))}" name="inputPass2" class="form-control" ng-model="view.pass2" ng-minlength="5" required>
 								</div>
 							</div>

@@ -14,25 +14,7 @@
 		$scope.errors = {};
 		$scope.errors.register = false;
 		$scope.errors.registerCode = "";
-		
-		$scope.isNumber = function (number) {
-			if (isNaN(number)) {
-				return false;
-			} else {
-				return true;
-			}
-		}
-		
-		$scope.validatePassword = function (pass, pass2) {
-			if ((pass != "") && (pass2 != "")) {
-				if (pass == pass2) {
-					return true;
-				} else {
-					return false;
-				}
-			} else return false;
-		}
-		
+						
 		$scope.validateDni = function (dni) {
 			if (dni !== undefined) {
 				var numero, let, letra;

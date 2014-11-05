@@ -1,106 +1,94 @@
 <div id="middle" class="container">
 	<div class="white">
-		<header class="page-header">
-			<h1>Acount Settings</h1>
-		</header>
-		<hr class="half-margins invisible" /><!-- spacer 30px -->
 		<div class="row">
-			<!-- PERSONAL DETAILS -->
 			<div class="col-md-7 col-sm-7">
-				<h4>Personal <strong>Details</strong></h4>
-				<form action="#" method="post">
-					<div class="row">
-						<div class="form-group">
-							<div class="col-md-6">
-								<label>First Name *</label>
-								<input type="text" value="" class="form-control" />
-							</div>
-							<div class="col-md-6">
-								<label>Last Name *</label>
-								<input type="email" value="" class="form-control" />
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-md-6">
-								<label>Email *</label>
-								<input type="text" value="" class="form-control" />
-							</div>
-							<div class="col-md-6">
-								<label>Phone</label>
-								<input type="email" value="" class="form-control" />
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-md-6">
-								<label>Country *</label>
-								<select class="form-control pointer">
-									<option value="" selected="selected"></option>
-								</select>
-							</div>
-							<div class="col-md-6">
-								<label>City *</label>
-								<input type="email" value="" class="form-control" />
-							</div>
-						</div>
-					</div>
+				<h4>Datos <strong>Personales</strong></h4>
+				<div class="alert alert-success" ng-show="view.dataChanged">
+					<span>Datos cambiados correctamente.</span>
+				</div>
+				<div class="alert alert-danger" ng-show="errors.changeData">
+					<span ng-show="errors.changeDataCode == '1'">La sesión ha caducado, vuelva a intentarlo.</span>
+					<span ng-show="errors.changeDataCode != '1'">Error al intentar cambiar los datos de usuario.</span>
+				</div>
+				<form name="formPData">
 					<div class="row">
 						<div class="form-group">
 							<div class="col-md-12">
-								<label>Address</label>
-								<textarea rows="3" class="form-control"></textarea>
+								<label>Nombre y Apellidos</label>
+								<input type="text" class="form-control" ng-model="data.user.name" ng-class="{formInvalid: formPData.inputName.$invalid}" name="inputName" required/>
 							</div>
 						</div>
-					</div>
-					<div class="row">
 						<div class="form-group">
 							<div class="col-md-6">
-								<label class="block">Newsletter</label>
-								<label class="pointer"><input type="checkbox" value="" class="form-control" checked="checked" /> I want monthly newsletter</label>
+								<label>Email</label>
+								<input type="email" class="form-control" ng-model="data.user.email" ng-class="{formInvalid: formPData.inputEmail.$invalid}" name="inputEmail" required/>
 							</div>
 							<div class="col-md-6">
-								<label class="block">Sex</label>
-								<label class="pointer"><input type="radio" name="radio_name" value="1" class="form-control" checked="checked" /> Female</label>
-								<label class="pointer padding-left20"><input type="radio" name="radio_name" value="2" class="form-control" /> Male</label>
+								<label>Teléfono</label>
+								<input type="text" ng-class="{formInvalid: formPData.inputPhone.$invalid || !isNumber(data.user.phoneNumber) }" name="inputPhone" class="form-control" ng-model="data.user.phoneNumber" ng-minlength="9" ng-maxlength="9" required/>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-6">
+								<label>Talla de camiseta</label>
+								<select class="form-control" ng-model="data.user.shirtSize">
+									<option>XS</option>
+									<option>S</option>
+									<option>M</option>
+									<option>L</option>
+									<option>XL</option>
+									<option>XXL</option>
+								</select>
+							</div>
+							<div class="col-md-6">
+								<label>Identificación</label>
+								<input class="form-control" ng-model="data.user.dni" disabled/>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<button class="btn btn-primary"><i class="fa fa-check"></i> Save Changes</button> 
+							<button class="btn btn-primary" ng-click="changeData()" ng-disabled="((formPData.$invalid) || (!isNumber(data.user.phoneNumber)))"><i class="fa fa-check"></i> Guardar cambios</button> 
 						</div>
 					</div>
 				</form>
 			</div>
-			<!-- /PERSONAL DETAILS -->
 
 			<!-- PASSWORD -->
 			<div class="col-md-4 col-sm-4 responsive-top-space">
-				<h4>Change <strong>Password</strong></h4>
-				<form action="#" method="post">
+				<h4>Cambiar <strong>Contraseña</strong></h4>
+				<div class="alert alert-success" ng-show="view.passChanged">
+					<span>Contraseña cambiada correctamente.</span>
+				</div>
+				<div class="alert alert-danger" ng-show="errors.recoverPass">
+					<span ng-show="errors.recoverPassCode == '1'">La sesión ha caducado, vuelva a intentarlo.</span>
+					<span ng-show="errors.recoverPassCode != '1'">Error al intentar cambiar la contraseña.</span>
+				</div>
+				<form name="formLostPass">
 					<div class="row">
 						<div class="form-group">
 							<div class="col-md-12">
-								<label>Old Password *</label>
-								<input type="password" value="" class="form-control" />
+								<label>Contraseña anterior</label>
+								<input ng-class="{formInvalid: formLostPass.inputOldPass.$invalid}" name="inputOldPass" type="password" class="form-control" ng-model="view.oldPass" ng-minlength="5" required/>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-12">
-								<label>New Password *</label>
-								<input type="password" value="" class="form-control" />
+								<label>Nueva contraseña</label>
+								<input ng-class="{formInvalid: formLostPass.inputPass.$invalid}" name="inputPass" type="password" class="form-control" ng-model="view.newPass" ng-minlength="5" required/>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-12">
-								<label>New Password Again *</label>
-								<input type="password" value="" class="form-control" />
+								<label>Repetir nueva contraseña</label>
+								<input  type="password" ng-class="{formInvalid: ((formLostPass.inputPass2.$invalid) || (!validatePassword(view.newPass, view.newPass2)))}" name="inputPass2" class="form-control" ng-model="view.newPass2" ng-minlength="5" required />
 							</div>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-md-12">
-							<button class="btn btn-primary"><i class="fa fa-check"></i> Change Password</button> 
+							<button class="btn btn-primary" ng-click="changePassword(view.oldPass,view.newPass)" ng-disabled="((formLostPass.$invalid) || (!validatePassword(view.newPass, view.newPass2)))"><i class="fa fa-check"></i> Cambiar contraseña</button> 
 						</div>
 					</div>
 				</form>
