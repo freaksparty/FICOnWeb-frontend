@@ -27,6 +27,10 @@ FICOnWeb.config(function ($routeProvider) {
 });
 
 FICOnWeb.run(['$rootScope', '$http', '$cookieStore', function ($rootScope, $http, $cookieStore) {
+	$rootScope.vars = {};
+	$rootScope.vars.logged = false;
+	$rootScope.vars.userName = "";
+	
 	$rootScope.createSession = function() {
 		$http.get('http://ficonlan.es:81/api/session')
 		.success(function(data, status, headers, config) {
@@ -34,5 +38,38 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', function ($rootScope, $http
 		}).error(function(data, status, headers, config) {
 			console.log('error al crear sesion');
 		});
+	};
+	
+	$rootScope.isValidSession = function() {
+		$http({
+			url: 'http://ficonlan.es:81/api/session/isvalid',
+			method: "GET",
+			headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
+		}).success(function (data, status, headers, config) {
+			if (data == "false") $rootScope.createSession();
+		}).error(function (data, status, headers, config) {
+			$rootScope.createSession();
+		});
+	};
+	
+	$rootScope.isLogged = function() {
+		if ($cookieStore.get('FICOnCookie').user != null) {
+			$rootScope.vars.logged = true;
+			$rootScope.vars.userName = $cookieStore.get('FICOnCookie').loginName;
+		} else {
+			$rootScope.vars.logged = false;
+			$rootScope.vars.userName = "";
+		}
 	}
+	
+	//función para comprobar la validez de las cookies en cada carga de página
+	$rootScope.$on('$routeChangeSuccess', function () {
+		if ($cookieStore.get('FICOnCookie')) {
+			$rootScope.isValidSession();
+			$rootScope.isLogged();
+		} else {
+			$rootScope.createSession();
+		};
+	});
+	
 }]);

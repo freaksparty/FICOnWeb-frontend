@@ -49,20 +49,21 @@
             <div class="col-md-6">
 
                 <h4>Olvidaste la <strong>contraseña</strong>?</h4>
-                <!-- alert success -->
-                <div class="alert alert-success">
+                
+				<!-- alert success -->
+                <div ng-show="view.sendRecover" class="alert alert-success">
                     <strong>Nuevo password enviado!</strong> Comprueba tu E-mail!
                 </div>
 
                 <!-- alert failed -->
-                <div class="alert alert-danger">
+                <div ng-show="errors.forgot" class="alert alert-danger">
                     <strong>E-mail</strong> no encontrado!
-                </div>
+                </div> 
 
                 <!-- password form -->
                 <label class="font300">Escribe tu E-mail</label>
-                <form class="input-group" method="post" action="#">
-                    <input type="text" class="form-control" name="s" id="s" value="" placeholder="Dirección de E-mail" />
+                <form class="input-group">
+                    <input type="text" class="form-control"  />
                     <span class="input-group-btn">
                         <button class="btn btn-primary">ENVIAR</button>
                     </span>

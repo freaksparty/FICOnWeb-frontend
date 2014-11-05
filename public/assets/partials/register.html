@@ -9,8 +9,11 @@
 						<span ng-show="errors.registerCode == '1'">La sesión ha caducado, vuelva a intentarlo</span>
 						<span ng-show="errors.registerCode == '3'">El usuario o dni introducido ya existe en nuestra base de datos</span>
 					</div>
+					<div class="alert alert-success" ng-show="view.registerSend">
+						<span>Usuario registrado correctamente.</span>
+					</div>
 				</div>
-				<form name="formRegister">	
+				<form name="formRegister" ng-hide="view.registerSend">	
 					<div class="col-md-6">				
 						<div class="row">
 							<div class="form-group">
@@ -53,8 +56,13 @@
 						<div class="row">
 							<div class="form-group">
 								<div class="col-md-12">
-									<label>DNI</label>
-									<input type="text" ng-class="{formInvalid: formRegister.inputDni.$invalid}" name="inputDni" class="form-control" ng-model="view.dni" required>
+									<label class="radio-inline">
+										<input type="radio" name="inlineRadioOptions" value="1" ng-model="view.selectDNI"> DNI
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="inlineRadioOptions" value="2" ng-model="view.selectDNI"> Otro {{}}
+									</label>
+									<input type="text" ng-class="{formInvalid: ((formRegister.inputDni.$invalid) || ((!validateDni(view.dni)) && (view.selectDNI == 1)))}" name="inputDni" class="form-control" ng-model="view.dni" required>
 								</div>
 							</div>
 						</div>	
@@ -62,7 +70,7 @@
 							<div class="form-group">
 								<div class="col-md-6">
 									<label>Teléfono</label>
-									<input type="number" ng-class="{formInvalid: formRegister.inputPhone.$invalid}" name="inputPhone" class="form-control" ng-model="view.phone" ng-minlength="9" ng-maxlength="9" required>
+									<input type="text" ng-class="{formInvalid: formRegister.inputPhone.$invalid || !isNumber(view.phone) }" name="inputPhone" class="form-control" ng-model="view.phone" ng-minlength="9" ng-maxlength="9" required>
 								</div>
 								<div class="col-md-6">
 									<label>Talla de camiseta</label>
@@ -79,7 +87,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<button class="btn btn-primary pull-right push-bottom" ng-click="register(view.login, view.pass, view.pass2, view.email, view.name, view.dni, view.phone, view.shirtSize)" ng-disabled="!validatePassword(view.pass, view.pass2) || formRegister.$invalid">Enviar</button>
+								<button class="btn btn-primary pull-right push-bottom" ng-click="register(view.login, view.pass, view.pass2, view.email, view.name, view.dni, view.phone, view.shirtSize)" ng-disabled="!validatePassword(view.pass, view.pass2) || formRegister.$invalid || !isNumber(view.phone) || ((!validateDni(view.dni)) && (view.selectDNI == 1))">Enviar</button>
 							</div>
 						</div>
 					</div>

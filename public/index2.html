@@ -14,6 +14,9 @@
 		<!-- mobile settings -->
 		<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
 
+		<!-- FAVICON -->
+		<link rel="icon" type="image/png" href="assets/images/favicon.png" />
+		
 		<!-- WEB FONTS -->
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" type="text/css" />
 
@@ -65,22 +68,22 @@
 
 				<div class="btn-group pull-right" ng-controller="menuCtrl">
 					<button class="dropdown-toggle language" type="button" data-toggle="dropdown">
-						Entrar <span class="caret"></span>
+						<span ng-hide="vars.logged">Entrar <span class="caret"></span></span>
+						<span ng-show="vars.logged">Bienvenido {{vars.userName}} <span class="caret"></span></span>
 					</button>
 
 					<ul class="dropdown-menu">
-						<li>
+						<li ng-hide="vars.logged">
 							<a href="#/login"><i class="fa fa-user"></i> Login</a>
 						</li>
-						<li>
+						<li ng-hide="vars.logged">
 							<a href="#/register"><i class="fa fa-key"></i> Registro</a>
 						</li>
-						<li class="divider"></li>
-						<li>
+						<li ng-show="vars.logged">
 							<a href="page-account-settings.html"><i class="fa fa-cogs"></i> Perfil</a>
 						</li>
-						<li>
-							<a href="page-account-logout.html"><i class="fa fa-power-off"></i> Salir</a>
+						<li ng-show="vars.logged">
+							<a href="" ng-click="logout()"><i class="fa fa-power-off"></i> Salir</a>
 						</li>
 					</ul>
 				</div>

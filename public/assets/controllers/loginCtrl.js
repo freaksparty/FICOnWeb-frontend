@@ -3,9 +3,12 @@
         $scope.view = {};
         $scope.view.user = "";
         $scope.view.password = "";
+		$scope.view.sendRecover = false;
 		$scope.errors = {};
 		$scope.errors.login = false;
 		$scope.errors.loginCode = "";
+		$scope.errors.forgot = false;
+		$scope.errors.forgotCode = "";
         
         $scope.login = function (user, password) {
 			$scope.errors.login = false;
