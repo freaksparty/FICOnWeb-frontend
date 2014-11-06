@@ -7,7 +7,7 @@
 					<!-- alert failed -->
 					<div class="alert alert-danger" ng-show="errors.register">
 						<span ng-show="errors.registerCode == '1'">La sesión ha caducado, vuelva a intentarlo</span>
-						<span ng-show="errors.registerCode == '3'">El usuario o dni introducido ya existe en nuestra base de datos</span>
+						<span ng-show="errors.registerCode == '3'">El {{view.duplicateField}} introducido ya existe en nuestra base de datos</span>
 					</div>
 					<div class="alert alert-success" ng-show="view.registerSend">
 						<span>Usuario registrado correctamente.</span>
@@ -40,6 +40,19 @@
 								<div class="col-md-12">
 									<label>E-mail</label>
 									<input type="email" ng-class="{formInvalid: formRegister.inputEmail.$invalid}" name="inputEmail" class="form-control" ng-model="view.email" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group">
+								<div class="col-md-12">
+									<label>Fecha de Nacimiento</label>
+									<p class="input-group">
+									  <input type="text" ng-class="{formInvalid: formRegister.inputDob.$invalid}" name="inputDob" class="form-control" datepicker-popup="{{format}}" show-button-bar="false" ng-model="view.dob" is-open="opened" datepicker-options="dateOptions" datepicker-mode="'year'" required />
+									  <span class="input-group-btn">
+										<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+									  </span>
+									</p>
 								</div>
 							</div>
 						</div>
@@ -87,7 +100,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<button class="btn btn-primary pull-right push-bottom" ng-click="register(view.login, view.pass, view.pass2, view.email, view.name, view.dni, view.phone, view.shirtSize)" ng-disabled="!validatePassword(view.pass, view.pass2) || formRegister.$invalid || !isNumber(view.phone) || ((!validateDni(view.dni)) && (view.selectDNI == 1))">Enviar</button>
+								<button class="btn btn-primary pull-right push-bottom" ng-click="register(view.login, view.pass, view.pass2, view.email, view.name, view.dni, view.phone, view.shirtSize, view.dob)" ng-disabled="!validatePassword(view.pass, view.pass2) || formRegister.$invalid || !isNumber(view.phone) || ((!validateDni(view.dni)) && (view.selectDNI == 1))">Enviar</button>
 							</div>
 						</div>
 					</div>

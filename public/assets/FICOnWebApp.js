@@ -1,4 +1,4 @@
-var FICOnWeb = angular.module('FICOnWeb', ['ngRoute', 'ngCookies']);
+var FICOnWeb = angular.module('FICOnWeb', ['ngRoute', 'ngCookies', 'ui.bootstrap']);
 
 FICOnWeb.config(function ($sceProvider) {
     // Completely disable SCE.  For demonstration purposes only!

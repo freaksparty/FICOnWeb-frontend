@@ -13,6 +13,8 @@
         
 		$scope.sendForgotten = function (email) {
 			$scope.view.sendRecover = false;
+			$scope.errors.forgot = false;
+			$scope.errors.forgotCode = "";
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
 					url: 'http://ficonlan.es:81/api/user/passwordrecover',
@@ -42,6 +44,7 @@
 		
         $scope.login = function (user, password) {
 			$scope.errors.login = false;
+			$scope.errors.loginCode = "";
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
 					url: 'http://ficonlan.es:81/api/login',

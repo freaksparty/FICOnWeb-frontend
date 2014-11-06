@@ -1,5 +1,5 @@
 (function () {
-    var registerCtrl = function ($scope, $cookieStore, $http, $rootScope) {
+    var registerCtrl = function ($scope, $cookieStore, $http, $rootScope, $filter) {
         $scope.view = {};
 		$scope.view.selectDNI = "1";
 		$scope.view.login = "";
@@ -10,11 +10,32 @@
 		$scope.view.dni = "";
 		$scope.view.phone = "";
 		$scope.view.shirtSize = "";
+		$scope.view.dob = "";
 		$scope.view.registerSend = false;
 		$scope.errors = {};
 		$scope.errors.register = false;
 		$scope.errors.registerCode = "";
-						
+
+		$scope.fechaya = function () {
+			console.log('entro');
+			$scope.view.dob = $filter('date')($scope.view.dob, 'dd-MM-yyyy/00:00:00');
+			console.log('salgo');
+		}
+		
+		$scope.open = function($event) {
+			$event.preventDefault();
+			$event.stopPropagation();
+			$scope.opened = true;
+		};
+
+		$scope.dateOptions = {
+			formatYear: 'yyyy',
+			'show-weeks': 'false',
+			startingDay: 1
+		};
+
+		$scope.format = 'dd-MM-yyyy';
+			
 		$scope.validateDni = function (dni) {
 			if (dni !== undefined) {
 				var numero, let, letra;
@@ -40,19 +61,22 @@
 			}
 		};
 		
-		$scope.register = function (login, pass, pass2, email, name, dni, phone, shirtSize) {
+		$scope.register = function (login, pass, pass2, email, name, dni, phone, shirtSize, dob) {
+			$scope.view.registerSend = false;
 			$scope.errors.register = false;
+			$scope.errors.registerCode = "";	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
 					url: 'http://ficonlan.es:81/api/user',
 					method: "POST",
-					data: { "name" : name, "login" : login, "password" : pass, "dni" : dni, "email" : email, "phoneNumber" : phone, "shirtSize" : shirtSize },
+					data: { "name" : name, "login" : login, "password" : pass, "dni" : dni, "email" : email, "phoneNumber" : phone, "shirtSize" : shirtSize, "dob" : $filter('date')($scope.view.dob, 'dd-MM-yyyy/12:00:00') },
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
 					$scope.view.registerSend = true;
 				}).error(function (data, status, headers, config) {
 					$scope.errors.register = true;
 					$scope.errors.registerCode = data.exceptionCode;
+					$scope.view.duplicateField = data.field;
 					$rootScope.createSession();
 				});
 			} else {
@@ -61,13 +85,13 @@
 				$rootScope.createSession();
 			}
         }
-
+		
         $scope.ctr = function () {
         };
 		
         $scope.ctr();
     }
 
-    registerCtrl.$inject = ['$scope', "$cookieStore", "$http", "$rootScope"];
+    registerCtrl.$inject = ['$scope', "$cookieStore", "$http", "$rootScope", "$filter"];
     angular.module('FICOnWeb').controller('registerCtrl', registerCtrl);
 }());

@@ -8,7 +8,8 @@
 				</div>
 				<div class="alert alert-danger" ng-show="errors.changeData">
 					<span ng-show="errors.changeDataCode == '1'">La sesión ha caducado, vuelva a intentarlo.</span>
-					<span ng-show="errors.changeDataCode != '1'">Error al intentar cambiar los datos de usuario.</span>
+					<span ng-show="errors.changeDataCode == '3'">El email introducido ya pertenece a otra cuenta registrada.</span>
+					<span ng-show="((errors.changeDataCode != '1') && (errors.changeDataCode != '3'))">Error al intentar cambiar los datos de usuario.</span>
 				</div>
 				<form name="formPData">
 					<div class="row">
@@ -19,13 +20,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<div class="col-md-6">
+							<div class="col-md-12">
 								<label>Email</label>
 								<input type="email" class="form-control" ng-model="data.user.email" ng-class="{formInvalid: formPData.inputEmail.$invalid}" name="inputEmail" required/>
-							</div>
-							<div class="col-md-6">
-								<label>Teléfono</label>
-								<input type="text" ng-class="{formInvalid: formPData.inputPhone.$invalid || !isNumber(data.user.phoneNumber) }" name="inputPhone" class="form-control" ng-model="data.user.phoneNumber" ng-minlength="9" ng-maxlength="9" required/>
 							</div>
 						</div>
 						<div class="form-group">
@@ -41,8 +38,18 @@
 								</select>
 							</div>
 							<div class="col-md-6">
+								<label>Teléfono</label>
+								<input type="text" ng-class="{formInvalid: formPData.inputPhone.$invalid || !isNumber(data.user.phoneNumber) }" name="inputPhone" class="form-control" ng-model="data.user.phoneNumber" ng-minlength="9" ng-maxlength="9" required/>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-6">
 								<label>Identificación</label>
 								<input class="form-control" ng-model="data.user.dni" disabled/>
+							</div>
+							<div class="col-md-6">
+								<label>Fecha de nacimiento</label>
+								<input class="form-control" ng-model="data.user.dob" disabled/>
 							</div>
 						</div>
 					</div>

@@ -23,6 +23,7 @@
 						headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 					}).success(function (data, status, headers, config) {
 						$scope.data.user = data;
+						$scope.data.user.dob = $scope.data.user.dob.substring(1, $scope.data.user.dob.indexOf("/"));
 					}).error(function (data, status, headers, config) {
 						$location.path("home");
 					});
@@ -37,6 +38,7 @@
 		$scope.changeData = function () {
 			$scope.errors.changeData = false;
 			$scope.view.dataChanged = false;
+			$scope.errors.changeDataCode = "";
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
 					url: 'http://ficonlan.es:81/api/user/' + $cookieStore.get('FICOnCookie').user ,
@@ -57,6 +59,7 @@
 		$scope.changePassword = function (oldPassword, newPassword) {
 			$scope.errors.recoverPass = false;
 			$scope.view.passChanged = false;
+			$scope.errors.recoverPassCode = "";
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
 					url: 'http://ficonlan.es:81/api/user/changePassword/' + $cookieStore.get('FICOnCookie').user ,
