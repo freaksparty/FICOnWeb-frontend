@@ -2,109 +2,113 @@
 <!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
 <!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
 <!--[if gt IE 9]><!-->
-<html ng-app="FICOnWeb"> 
+<html ng-app="FICOnWeb">
 <!--<![endif]-->
-	<head>
-		<meta charset="utf-8" />
-		<title>FIC OnLan VI</title>
-		<meta name="keywords" content="" />
-        <meta name="description" content="FIC OnLan Web">
-        <meta name="author" content="Freaks Party">
 
-		<!-- mobile settings -->
-		<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+<head>
+    <meta charset="utf-8" />
+    <title>FIC OnLan VI</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="FIC OnLan Web">
+    <meta name="author" content="Freaks Party">
 
-		<!-- FAVICON -->
-		<link rel="icon" type="image/png" href="assets/images/favicon.png" />
-		
-		<!-- WEB FONTS -->
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" type="text/css" />
+    <!-- mobile settings -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
 
-		<!-- CORE CSS -->
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-		<link href="assets/css/font-awesome.css" rel="stylesheet" type="text/css" />
-		<link href="assets/plugins/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css" />
-		<link href="assets/plugins/owl-carousel/owl.theme.css" rel="stylesheet" type="text/css" />
-		<link href="assets/plugins/owl-carousel/owl.transitions.css" rel="stylesheet" type="text/css" />
-		<link href="assets/plugins/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
 
-		<!-- THEME CSS -->
-		<link href="assets/css/essentials.css" rel="stylesheet" type="text/css" />
-		<link href="assets/css/layout.css" rel="stylesheet" type="text/css" />
-		<link href="assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" />
+    <!-- WEB FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" type="text/css" />
 
-		<!-- Modernizr -->
-		<script type="text/javascript" src="assets/plugins/modernizr.min.js"></script>
-	</head>
-	<body>
-		<!-- TOP BAR -->
-		<div id="topBar">
-			<div class="container">
-				<!-- LANGUAGE -->
-				<div class="btn-group pull-right">
-					<button class="dropdown-toggle language" type="button" data-toggle="dropdown">
-						<img id="current_lang" src="assets/images/flags/es.png" width="16" height="11" alt="Castellano" /> <span class="hidden-xs">Castellano</span> <span class="caret"></span>
-					</button>
+    <!-- CORE CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link href="assets/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/owl-carousel/owl.theme.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/owl-carousel/owl.transitions.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
 
-					<ul class="dropdown-menu">
-						<li>
-							<a href="#">
-								<img src="assets/images/flags/es.png" width="16" height="11" alt="Castellano" /> [ES] Castellano
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<img src="assets/images/flags/gl.png" width="16" height="11" alt="Galego" /> [GL] Galego
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<img src="assets/images/flags/us.png" width="16" height="11" alt="English" /> [EN] English
-							</a>
-						</li>
-					</ul>
-				</div>
-				<!-- /LANGUAGE -->
+    <!-- THEME CSS -->
+    <link href="assets/css/essentials.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" />
 
-				<div class="btn-group pull-right" ng-controller="menuCtrl">
-					<button class="dropdown-toggle language" type="button" data-toggle="dropdown">
-						<span ng-hide="vars.logged">Entrar <span class="caret"></span></span>
-						<span ng-show="vars.logged">Bienvenido {{vars.userName}} <span class="caret"></span></span>
-					</button>
+    <!-- Modernizr -->
+    <script type="text/javascript" src="assets/plugins/modernizr.min.js"></script>
+</head>
 
-					<ul class="dropdown-menu">
-						<li ng-hide="vars.logged">
-							<a href="#/login"><i class="fa fa-user"></i> Login</a>
-						</li>
-						<li ng-hide="vars.logged">
-							<a href="#/register"><i class="fa fa-key"></i> Registro</a>
-						</li>
-						<li ng-show="vars.logged">
-							<a href="#/profile"><i class="fa fa-cogs"></i> Perfil</a>
-						</li>
-						<li ng-show="vars.logged">
-							<a href="" ng-click="logout()"><i class="fa fa-power-off"></i> Salir</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- /TOP BAR -->
+<body>
+    <!-- TOP BAR -->
+    <div id="topBar">
+        <div class="container">
+            <!-- LANGUAGE -->
+            <div class="btn-group pull-right">
+                <button class="dropdown-toggle language" type="button" data-toggle="dropdown">
+                    <img id="current_lang" src="assets/images/flags/es.png" width="16" height="11" alt="Castellano" /> <span class="hidden-xs">Castellano</span>  <span class="caret"></span>
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#">
+                            <img src="assets/images/flags/es.png" width="16" height="11" alt="Castellano" />[ES] Castellano
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="assets/images/flags/gl.png" width="16" height="11" alt="Galego" />[GL] Galego
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="assets/images/flags/us.png" width="16" height="11" alt="English" />[EN] English
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /LANGUAGE -->
+
+            <div class="btn-group pull-right" ng-controller="menuCtrl">
+                <button class="dropdown-toggle language" type="button" data-toggle="dropdown">
+                    <span ng-hide="vars.logged">Entrar <span class="caret"></span></span>
+                    <span ng-show="vars.logged">Bienvenido {{vars.userName}} <span class="caret"></span></span>
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li ng-hide="vars.logged">
+                        <a href="#/login"><i class="fa fa-user"></i> Login</a>
+                    </li>
+                    <li ng-hide="vars.logged">
+                        <a href="#/register"><i class="fa fa-key"></i> Registro</a>
+                    </li>
+                    <li ng-show="vars.logged">
+                        <a href="#/profile"><i class="fa fa-cogs"></i> Perfil</a>
+                    </li>
+                    <li ng-show="vars.logged">
+                        <a href="" ng-click="logout()"><i class="fa fa-power-off"></i> Salir</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /TOP BAR -->
 
 
 
 
-		<!-- HEADER -->
-		<header id="header">
-			<div class="container">
+    <!-- HEADER -->
+    <header id="header">
+        <div class="container">
 
-				<!-- LOGO -->
-				<a href="#/home" class="logo"><img alt="" src="assets/images/logo.png" height="60" /></a>
-				<!-- LOGO -->
+            <!-- LOGO -->
+            <a href="#/home" class="logo">
+                <img alt="" src="assets/images/logo.png" height="60" />
+            </a>
+            <!-- LOGO -->
 
-				<!-- OPTIONS -->
-				<ul id="topOptions">
-				    <!--<li>
+            <!-- OPTIONS -->
+            <ul id="topOptions">
+                <!--<li>
 						<button class="topSearchBtn fa fa-search"></button>
 						
 						<form id="topSearch" method="get" action="page-search.html" class="input-group pull-right">
@@ -114,120 +118,176 @@
 							</span>
 						</form>
 					</li>-->
-					<li><!-- Mobile Menu Button -->
-						<button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
-							<i class="fa fa-bars"></i>
-						</button>
-					</li>
-				</ul>
-				<!-- /OPTIONS -->
+                <li>
+                    <!-- Mobile Menu Button -->
+                    <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </li>
+            </ul>
+            <!-- /OPTIONS -->
 
 
-				<!-- TOP MENU -->
-				<div class="navbar-collapse nav-main-collapse collapse pull-left">
-					<nav class="nav-main">
-						<ul class="nav nav-pills nav-main scroll-menu" id="topMain">
+            <!-- TOP MENU -->
+            <div class="navbar-collapse nav-main-collapse collapse pull-left">
+                <nav class="nav-main">
+                    <ul class="nav nav-pills nav-main scroll-menu" id="topMain">
 
-							<li class="active">
-								<a class="dropdown-toggle" href="#/home">Inicio</a>
-							</li>
+                        <li class="active">
+                            <a class="dropdown-toggle" href="#/home">Inicio</a>
+                        </li>
 
-							<li class="dropdown">
-								<a class="dropdown-toggle" href="#">Información<i class="fa fa-angle-down"></i></a>
-								<ul class="dropdown-menu">
-									<li><a href="#">Freak's Party</a></li>
-                                    <li><a href="#">FIC OnLan</a></li>
-                                    <li><a href="#">FIC OnDev</a></li>
-                                    <li><a href="#">Normas</a></li>
-                                    <li><a href="#">Contacto</a></li>
-								</ul>
-							</li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#">Información<i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Freak's Party</a>
+                                </li>
+                                <li><a href="#">FIC OnLan</a>
+                                </li>
+                                <li><a href="#">FIC OnDev</a>
+                                </li>
+                                <li><a href="#">Normas</a>
+                                </li>
+                                <li><a href="#">Contacto</a>
+                                </li>
+                            </ul>
+                        </li>
 
-							<li class="dropdown">
-								<a class="dropdown-toggle" href="#">Actividades<i class="fa fa-angle-down"></i></a>
-								<ul class="dropdown-menu">
-									<li class="dropdown">
-										<a href="#">Torneos <i class="fa fa-angle-right"></i></a>
-										<ul class="dropdown-menu">
-											<li><a href="#">Torneo 1</a></li>
-                                            <li><a href="#">Torneo 2</a></li>
-										</ul>
-									</li>
-                                    <li class="dropdown">
-										<a href="#">Concursos <i class="fa fa-angle-right"></i></a>
-										<ul class="dropdown-menu">
-											<li><a href="#">Concurso 1</a></li>
-                                            <li><a href="#">Concurso 2</a></li>
-										</ul>
-									</li>
-                                    <li class="dropdown">
-										<a href="#">Otros <i class="fa fa-angle-right"></i></a>
-										<ul class="dropdown-menu">
-											<li><a href="#">Otros 1</a></li>
-                                            <li><a href="#">Otros 2</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</nav>
-				</div>
-				<!-- /TOP MENU -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#">Actividades<i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown">
+                                    <a href="#">Torneos <i class="fa fa-angle-right"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Torneo 1</a>
+                                        </li>
+                                        <li><a href="#">Torneo 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#">Concursos <i class="fa fa-angle-right"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Concurso 1</a>
+                                        </li>
+                                        <li><a href="#">Concurso 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#">Otros <i class="fa fa-angle-right"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Otros 1</a>
+                                        </li>
+                                        <li><a href="#">Otros 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
 
-			</div>
-		</header>
-		<!-- /HEADER -->
-        <div ng-view></div>
-		<!-- FOOTER -->
-		<footer id="footer">
-			<span id="slideTimer"><!-- fs-slideshow timer line --></span>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#">Administración<i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown">
+                                    <a href="#">Eventos <i class="fa fa-angle-right"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Gestionar</a></li>
+                                        <li><a href="#">Añadir</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#">Noticias <i class="fa fa-angle-right"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#/admin/news/add">Añadir</a></li>
+                                        <li><a href="#">Editar</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#">Actividades <i class="fa fa-angle-right"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Añadir</a></li>
+                                        <li><a href="#">Editar</a>
+                                        </li>
+                                    </ul>
+                                </li>            
+                                <li><a href="#">Usuarios</a></li>
+                                <li class="dropdown">
+                                    <a href="#">Roles <i class="fa fa-angle-right"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Añadir</a></li>
+                                        <li><a href="#">Editar</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Blacklist</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- /TOP MENU -->
 
-			<!-- right menu -->
-			<ul>
-				<li><a href="mailto:contacto@ficonlan.es">CONTACTO</a></li>
-				<li class="sepy">&bull;</li>
-                <li><a href="https://www.facebook.com/ficonlan.es" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="https://twitter.com/Fic_OnLan" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="https://www.youtube.com/user/MrFICOnLan" target="_blank"><i class="fa fa-youtube"></i></a></li>
-			</ul>
-			<!-- /right menu -->
+        </div>
+    </header>
+    <!-- /HEADER -->
+    <div ng-view></div>
+    <!-- FOOTER -->
+    <footer id="footer">
+        <span id="slideTimer"><!-- fs-slideshow timer line --></span>
 
-			<!-- copyright -->
-			<span class="hidden-xs">&copy; FREAK'S PARTY</span>
-			<!-- /copyright -->
-		</footer>
-		<!-- /FOOTER -->
+        <!-- right menu -->
+        <ul>
+            <li><a href="mailto:contacto@ficonlan.es">CONTACTO</a>
+            </li>
+            <li class="sepy">&bull;</li>
+            <li><a href="https://www.facebook.com/ficonlan.es" target="_blank"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li><a href="https://twitter.com/Fic_OnLan" target="_blank"><i class="fa fa-twitter"></i></a>
+            </li>
+            <li><a href="https://www.youtube.com/user/MrFICOnLan" target="_blank"><i class="fa fa-youtube"></i></a>
+            </li>
+        </ul>
+        <!-- /right menu -->
+
+        <!-- copyright -->
+        <span class="hidden-xs">&copy; FREAK'S PARTY</span>
+        <!-- /copyright -->
+    </footer>
+    <!-- /FOOTER -->
 
 
-		<!-- JAVASCRIPT FILES -->
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-		<script type="text/javascript" src="assets/js/angular-locale_es-es.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-cookies.min.js"></script>
-		<script type="text/javascript" src="assets/js/ui-bootstrap-tpls-0.11.2.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script type="text/javascript" src="assets/plugins/jquery.easing.1.3.js"></script>
-		<script type="text/javascript" src="assets/plugins/jquery.appear.js"></script>
-		<script type="text/javascript" src="assets/plugins/jquery.isotope.js"></script>
-		<script type="text/javascript" src="assets/plugins/jquery.nicescroll.min.js"></script>
+    <!-- JAVASCRIPT FILES -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script type="text/javascript" src="assets/js/angular-locale_es-es.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="assets/js/ui-bootstrap-tpls-0.11.2.min.js"></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.2/textAngular-sanitize.min.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.2/textAngular.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery.appear.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery.isotope.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery.nicescroll.min.js"></script>
 
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="assets/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
-		<script type="text/javascript" src="assets/plugins/owl-carousel/owl.carousel.min.js"></script>
-		<script type="text/javascript" src="assets/plugins/knob/js/jquery.knob.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/owl-carousel/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/knob/js/jquery.knob.js"></script>
 
-		<!-- MAXIMAGE SLIDER -->
-		<script type="text/javascript" src="assets/plugins/maximage/js/jquery.cycle.all.min.js"></script>
-		<script type="text/javascript" src="assets/plugins/maximage/js/jquery.maximage.min.js"></script>
+    <!-- MAXIMAGE SLIDER -->
+    <script type="text/javascript" src="assets/plugins/maximage/js/jquery.cycle.all.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/maximage/js/jquery.maximage.min.js"></script>
 
-		<script type="text/javascript" src="assets/js/scripts.js"></script>
-        
-        <!-- ANGULAR -->
-        <script src="assets/FICOnWebApp.js"></script>
-		<script src="assets/controllers/menuCtrl.js"></script>
-        <script src="assets/controllers/loginCtrl.js"></script>
-		<script src="assets/controllers/registerCtrl.js"></script>
-		<script src="assets/controllers/profileCtrl.js"></script>
+    <script type="text/javascript" src="assets/js/scripts.js"></script>
 
-	</body>
+    <!-- ANGULAR -->
+    <script src="assets/FICOnWebApp.js"></script>
+    <script src="assets/controllers/menuCtrl.js"></script>
+    <script src="assets/controllers/loginCtrl.js"></script>
+    <script src="assets/controllers/registerCtrl.js"></script>
+    <script src="assets/controllers/profileCtrl.js"></script>
+
+</body>
+
 </html>

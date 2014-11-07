@@ -25,6 +25,9 @@ FICOnWeb.config(function ($routeProvider) {
 			controller: 'profileCtrl',
             templateUrl: 'assets/partials/profile.html'
         })
+		.when('/admin/news/add' , {
+			templateUrl: 'assets/partials/newsadd.html'
+		})
         .otherwise({
             redirectTo: '/home'
         });
