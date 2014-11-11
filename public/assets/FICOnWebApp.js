@@ -1,12 +1,10 @@
-var FICOnWeb = angular.module('FICOnWeb', ['ngRoute', 'ngCookies', 'ui.bootstrap']);
+var FICOnWeb = angular.module('FICOnWeb', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'textAngular']);
 
 FICOnWeb.config(function ($sceProvider) {
     // Completely disable SCE.  For demonstration purposes only!
     // Do not use in new projects.
     $sceProvider.enabled(false);
 });
-
-
 
 FICOnWeb.config(function ($routeProvider) {
     $routeProvider
@@ -37,6 +35,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', function ($rootScope, $http
 	$rootScope.vars = {};
 	$rootScope.vars.logged = false;
 	$rootScope.vars.userName = "";
+	$rootScope.vars.roles = [];
 	
 	$rootScope.isNumber = function (number) {
 		if (isNaN(number)) {
@@ -77,10 +76,17 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', function ($rootScope, $http
 		});
 	};
 	
+	$rootScope.checkRoles = function(roles) {
+		roles.forEach(function(rol) {
+			$rootScope.vars.roles.push(rol.roleName);
+		});
+	}	
+	
 	$rootScope.isLogged = function() {
 		if ($cookieStore.get('FICOnCookie').user != null) {
 			$rootScope.vars.logged = true;
 			$rootScope.vars.userName = $cookieStore.get('FICOnCookie').loginName;
+			$rootScope.checkRoles($cookieStore.get('FICOnCookie').role);
 		} else {
 			$rootScope.vars.logged = false;
 			$rootScope.vars.userName = "";

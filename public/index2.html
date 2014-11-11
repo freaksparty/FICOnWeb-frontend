@@ -28,6 +28,7 @@
     <link href="assets/plugins/owl-carousel/owl.theme.css" rel="stylesheet" type="text/css" />
     <link href="assets/plugins/owl-carousel/owl.transitions.css" rel="stylesheet" type="text/css" />
     <link href="assets/plugins/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+	
 
     <!-- THEME CSS -->
     <link href="assets/css/essentials.css" rel="stylesheet" type="text/css" />
@@ -73,7 +74,6 @@
                     <span ng-hide="vars.logged">Entrar <span class="caret"></span></span>
                     <span ng-show="vars.logged">Bienvenido {{vars.userName}} <span class="caret"></span></span>
                 </button>
-
                 <ul class="dropdown-menu">
                     <li ng-hide="vars.logged">
                         <a href="#/login"><i class="fa fa-user"></i> Login</a>
@@ -92,9 +92,6 @@
         </div>
     </div>
     <!-- /TOP BAR -->
-
-
-
 
     <!-- HEADER -->
     <header id="header">
@@ -126,7 +123,6 @@
                 </li>
             </ul>
             <!-- /OPTIONS -->
-
 
             <!-- TOP MENU -->
             <div class="navbar-collapse nav-main-collapse collapse pull-left">
@@ -186,7 +182,7 @@
                             </ul>
                         </li>
 
-                        <li class="dropdown">
+                        <li class="dropdown" ng-show="(vars.roles.indexOf('Admin') != -1)">
                             <a class="dropdown-toggle" href="#">Administración<i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu">
                                 <li class="dropdown">
@@ -255,7 +251,6 @@
     </footer>
     <!-- /FOOTER -->
 
-
     <!-- JAVASCRIPT FILES -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script type="text/javascript" src="assets/js/angular-locale_es-es.js"></script>
@@ -278,8 +273,6 @@
     <!-- MAXIMAGE SLIDER -->
     <script type="text/javascript" src="assets/plugins/maximage/js/jquery.cycle.all.min.js"></script>
     <script type="text/javascript" src="assets/plugins/maximage/js/jquery.maximage.min.js"></script>
-
-    <script type="text/javascript" src="assets/js/scripts.js"></script>
 
     <!-- ANGULAR -->
     <script src="assets/FICOnWebApp.js"></script>
