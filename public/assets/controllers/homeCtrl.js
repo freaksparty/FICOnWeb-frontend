@@ -1,5 +1,5 @@
 (function () {
-    var homeCtrl = function ($scope, $rootScope, $http, $cookieStore) {
+    var homeCtrl = function ($scope, $rootScope, $http, $cookieStore, $routeParams, $location) {
         $scope.view = {};
 		$scope.data = {};
 		$scope.currentPage = 1;
@@ -11,15 +11,13 @@
 		}
 		
 		$scope.getPrev = function () {
-			$scope.currentPage = $scope.currentPage - 1;
-			$scope.data = {};
-			$scope.getNews();
+            $scope.currentPage = parseInt($scope.currentPage)-1;
+            $location.url("home?page=" + $scope.currentPage);
 		}
 		
 		$scope.getNext = function () {
-			$scope.currentPage = $scope.currentPage + 1;
-			$scope.data = {};
-			$scope.getNews();
+			$scope.currentPage = parseInt($scope.currentPage)+1;
+            $location.url("home?page=" + $scope.currentPage);
 		}
 		
 		$scope.getSize = function () {	
@@ -56,6 +54,7 @@
 		}
 		
         $scope.ctr = function () {
+            if ($routeParams.page) $scope.currentPage = $routeParams.page;
 			$scope.getSize();
 			$scope.getNews();
 		};
@@ -63,6 +62,6 @@
         $scope.ctr();
     }
 
-    homeCtrl.$inject = ['$scope', '$rootScope', '$http', '$cookieStore'];
+    homeCtrl.$inject = ['$scope', '$rootScope', '$http', '$cookieStore', '$routeParams', '$location'];
     angular.module('FICOnWeb').controller('homeCtrl', homeCtrl);
 }());

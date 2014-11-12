@@ -6,7 +6,7 @@
 			<li ng-show="isNext()"><a href="" ng-click="getNext()">Siguiente</a></li>
 		  </ul>
 		</nav>
-		<div ng-repeat="news in data" class="newsItem">
+		<div ng-repeat="news in data" class="newsItem col-xs-12">
 			<div class="row" style="margin-bottom: 20px;">
 				<div class="col-xs-12">
 					<h3 class="bold" style="margin-bottom: 2px;">{{news.title}}</h3>
@@ -22,5 +22,11 @@
 				</div>
 			</div>
 		</div>
+        <nav>
+		  <ul class="pager">
+			<li ng-show="currentPage > 1"><a href="" ng-click="getPrev()">Anterior</a></li>
+			<li ng-show="isNext()"><a href="" ng-click="getNext()">Siguiente</a></li>
+		  </ul>
+		</nav>
 	</div>
 </div>

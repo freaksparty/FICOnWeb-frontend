@@ -80,6 +80,10 @@
 			}
         };
 		
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
+        
         $scope.ctr = function () {
 			$scope.getCurrentUser();
         };

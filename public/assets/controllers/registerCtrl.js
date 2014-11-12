@@ -79,7 +79,7 @@
 				$rootScope.createSession();
 			}
         }
-		
+		        
         $scope.ctr = function () {
         };
 		
