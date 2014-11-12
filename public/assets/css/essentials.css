@@ -53,6 +53,13 @@
     border-color: rgba(255, 0, 0, 0.6) !important;
 }
 
+.newsItem {
+	margin-bottom: 50px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #7E8998;
+	border-top: 1px solid #7E8998;
+}
 /**	01. Resets
 *************************************************** **/
 button::-moz-focus-inner, 

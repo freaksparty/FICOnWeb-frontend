@@ -2,29 +2,36 @@
     <div class="white">
 		<div class="row">
 			<div class="col-xs-12">
-				<label>Título</label>
-				<input type="text" class="form-control" ng-model="view.title">
+				<label>Imágen cabecera</label>
+				<input type="text" class="form-control" ng-model="view.news.image">
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6">
+			<div class="col-xs-12">
+				<label>Título</label>
+				<input type="text" class="form-control" ng-model="view.news.title">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
 				<label>Fecha de publicación</label>
 				<p class="input-group">
-				  <input type="text" class="form-control" datepicker-popup="{{format}}" show-button-bar="false" ng-model="view.date" is-open="opened" datepicker-options="dateOptions" datepicker-mode="'day'" />
+				  <input type="text" class="form-control" datepicker-popup="{{format}}" show-button-bar="false" ng-model="view.news.date" is-open="opened" datepicker-options="dateOptions" datepicker-mode="'day'" />
 				  <span class="input-group-btn">
 					<button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
 				  </span>
 				</p>
 			</div>
-			<div class="col-xs-6">
-				<label>Horas de prioridad</label>
-				<input type="number" class="form-control" ng-model="view.priority" />
-			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-12">
 				<label>Contenido</label>
-				<div text-angular ng-model="view.content"></div>
+				<div text-angular ng-model="view.news.content"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<button class="btn btn-primary pull-right" ng-click="publish(view.news)">Enviar</button>
 			</div>
 		</div>
 </div>

@@ -15,12 +15,6 @@
 		$scope.errors = {};
 		$scope.errors.register = false;
 		$scope.errors.registerCode = "";
-
-		$scope.fechaya = function () {
-			console.log('entro');
-			$scope.view.dob = $filter('date')($scope.view.dob, 'dd-MM-yyyy/00:00:00');
-			console.log('salgo');
-		}
 		
 		$scope.open = function($event) {
 			$event.preventDefault();

@@ -9,6 +9,7 @@ FICOnWeb.config(function ($sceProvider) {
 FICOnWeb.config(function ($routeProvider) {
     $routeProvider
         .when('/home', {
+			controller: 'homeCtrl',
             templateUrl: 'assets/partials/home.html'
         })
         .when('/login', {
@@ -24,6 +25,7 @@ FICOnWeb.config(function ($routeProvider) {
             templateUrl: 'assets/partials/profile.html'
         })
 		.when('/admin/news/add' , {
+			controller: 'newsaddCtrl',
 			templateUrl: 'assets/partials/newsadd.html'
 		})
         .otherwise({
@@ -31,7 +33,7 @@ FICOnWeb.config(function ($routeProvider) {
         });
 });
 
-FICOnWeb.run(['$rootScope', '$http', '$cookieStore', function ($rootScope, $http, $cookieStore) {
+FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', function ($rootScope, $http, $cookieStore, $location, $window) {
 	$rootScope.vars = {};
 	$rootScope.vars.logged = false;
 	$rootScope.vars.userName = "";
@@ -59,6 +61,8 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', function ($rootScope, $http
 		$http.get('http://ficonlan.es:81/api/session')
 		.success(function(data, status, headers, config) {
 			$cookieStore.put('FICOnCookie', data);
+			$window.location.reload();
+			$location.path("/home");
 		}).error(function(data, status, headers, config) {
 			console.log('error al crear sesion');
 		});
@@ -70,7 +74,9 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', function ($rootScope, $http
 			method: "GET",
 			headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 		}).success(function (data, status, headers, config) {
-			if (data == "false") $rootScope.createSession();
+			if (data == "false") {
+				$rootScope.createSession();
+			}
 		}).error(function (data, status, headers, config) {
 			$rootScope.createSession();
 		});
