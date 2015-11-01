@@ -23,7 +23,7 @@
 		$scope.getSize = function () {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: 'http://ficonlan.es:81/api/event/news/published/size/1',
+					url: $rootScope.config.apiUrl + '/api/event/news/published/size/1',
 					method: "GET",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
@@ -40,7 +40,7 @@
 		$scope.getNews = function () {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: 'http://ficonlan.es:81/api/event/news/published/1/' + $scope.currentPage + '/' + $scope.pagination,
+					url: $rootScope.config.apiUrl + '/api/event/news/published/1/' + $scope.currentPage + '/' + $scope.pagination,
 					method: "GET",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {

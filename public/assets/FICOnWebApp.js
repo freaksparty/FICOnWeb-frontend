@@ -38,6 +38,9 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.vars.logged = false;
 	$rootScope.vars.userName = "";
 	$rootScope.vars.roles = [];
+    
+    $rootScope.config = {};
+    $rootScope.config.apiUrl = 'http://localhost:8080';
 	
 	$rootScope.isNumber = function (number) {
 		if (isNaN(number)) {
@@ -58,7 +61,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	}
 
 	$rootScope.createSession = function() {
-		$http.get('http://ficonlan.es:81/api/session')
+		$http.get($rootScope.config.apiUrl + '/api/session')
 		.success(function(data, status, headers, config) {
 			$cookieStore.put('FICOnCookie', data);
 			$window.location.reload();
@@ -70,7 +73,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	
 	$rootScope.isValidSession = function() {
 		$http({
-			url: 'http://ficonlan.es:81/api/session/isvalid',
+			url: $rootScope.config.apiUrl + '/api/session/isvalid',
 			method: "GET",
 			headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 		}).success(function (data, status, headers, config) {
@@ -89,10 +92,10 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	}	
 	
 	$rootScope.isLogged = function() {
-		if ($cookieStore.get('FICOnCookie').user != null) {
+		if ($cookieStore.get('FICOnCookie').userId > 0) {
 			$rootScope.vars.logged = true;
 			$rootScope.vars.userName = $cookieStore.get('FICOnCookie').loginName;
-			$rootScope.checkRoles($cookieStore.get('FICOnCookie').role);
+			$rootScope.checkRoles($cookieStore.get('FICOnCookie').roles);
 		} else {
 			$rootScope.vars.logged = false;
 			$rootScope.vars.userName = "";

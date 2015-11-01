@@ -24,7 +24,7 @@
 		$scope.publish = function (news) {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: 'http://ficonlan.es:81/api/event/news/1',
+					url: $rootScope.config.apiUrl + '/api/event/news/1',
 					method: "POST",
 					data: { "title" : news.title, "imageurl" : news.image, "content" : news.content, "priorityHours" : 0 },
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }

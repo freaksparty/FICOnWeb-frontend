@@ -17,7 +17,7 @@
 			$scope.errors.forgotCode = "";
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: 'http://ficonlan.es:81/api/user/passwordrecover',
+					url: $rootScope.config.apiUrl + '/api/user/passwordrecover',
 					method: "POST",
 					data: { "contenido" : email },
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
@@ -47,7 +47,7 @@
 			$scope.errors.loginCode = "";
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: 'http://ficonlan.es:81/api/login',
+					url: $rootScope.config.apiUrl + '/api/login',
 					method: "POST",
 					data: { "login" : user, "password" : password },
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }

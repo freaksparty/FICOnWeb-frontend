@@ -4,7 +4,7 @@
 		$scope.logout = function () {
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: 'http://ficonlan.es:81/api/session',
+					url: $rootScope.config.apiUrl + '/api/session',
 					method: "DELETE",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {

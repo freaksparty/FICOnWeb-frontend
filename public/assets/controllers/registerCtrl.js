@@ -61,7 +61,7 @@
 			$scope.errors.registerCode = "";	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: 'http://ficonlan.es:81/api/user',
+					url: $rootScope.config.apiUrl + '/api/user',
 					method: "POST",
 					data: { "name" : name, "login" : login, "password" : pass, "dni" : dni, "email" : email, "phoneNumber" : phone, "shirtSize" : shirtSize, "dob" : $filter('date')($scope.view.dob, 'dd-MM-yyyy/12:00:00') },
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
