@@ -66,23 +66,24 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 			$cookieStore.put('FICOnCookie', data);
 			$window.location.reload();
 			$location.path("/home");
+            $rootScope.vars.validSession = true;
 		}).error(function(data, status, headers, config) {
 			console.log('error al crear sesion');
 		});
 	};
 	
 	$rootScope.isValidSession = function() {
-		$http({
-			url: $rootScope.config.apiUrl + '/api/session/isvalid',
-			method: "GET",
-			headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
-		}).success(function (data, status, headers, config) {
-			if (data == "false") {
-				$rootScope.createSession();
-			}
-		}).error(function (data, status, headers, config) {
-			$rootScope.createSession();
-		});
+        $http({
+            url: $rootScope.config.apiUrl + '/api/session/isvalid',
+            method: "GET",
+            headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
+        }).success(function (data, status, headers, config) {
+            if (data == "false") {
+                $rootScope.createSession();
+            }
+        }).error(function (data, status, headers, config) {
+            $rootScope.createSession();
+        });
 	};
 	
 	$rootScope.checkRoles = function(roles) {

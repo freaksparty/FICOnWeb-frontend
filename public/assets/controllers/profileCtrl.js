@@ -1,5 +1,5 @@
 (function () {
-    var profileCtrl = function ($scope, $cookieStore, $http, $location) {
+    var profileCtrl = function ($scope, $rootScope, $cookieStore, $http, $location) {
         $scope.view = {};
 		$scope.view.passChanged = false;
 		$scope.view.dataChanged = false;
@@ -16,7 +16,7 @@
 
 		$scope.getCurrentUser = function () {
 			if ($cookieStore.get('FICOnCookie')) {
-				if ($cookieStore.get('FICOnCookie').user != null) {
+				if ($cookieStore.get('FICOnCookie').userId > 0) {
 					$http({
 						url: $rootScope.config.apiUrl + '/api/session/currentUser',
 						method: "GET",
@@ -91,6 +91,6 @@
         $scope.ctr();
     }
 
-    profileCtrl.$inject = ['$scope', '$cookieStore', '$http', '$location'];
+    profileCtrl.$inject = ['$scope', '$rootScope', '$cookieStore', '$http', '$location'];
     angular.module('FICOnWeb').controller('profileCtrl', profileCtrl);
 }());
