@@ -1,0 +1,45 @@
+<div class="row">
+	<div class="col-md-6">
+		<label>Buscar</label>
+		<input type="text" class="form-control" ng-model="search.$">
+	</div>
+	<div class="col-md-6">
+		<label>Paginación</label><br/>
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 5}" ng-click="getPages(5)">5</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 10}" ng-click="getPages(10)">10</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 25}" ng-click="getPages(25)">25</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 100}" ng-click="getPages(100)">100</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 0}" ng-click="getPages(0)">Todas</button>
+		</div>
+	</div>
+</div>
+<div class="divider half-margins"></div>
+<div class="table-responsive">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th style="cursor: pointer;" ng-click="changeFilter('event')">Evento <span ng-show="orderBy=='event'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('activityId')">Id <span ng-show="orderBy=='activityId'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('name')">Nombre <span ng-show="orderBy=='name'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('type')">Tipo <span ng-show="orderBy=='type'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody ng-repeat="activity in data | filter:search">
+			<tr>
+				<th style="font-weight: 500;">{{activity.event}}</th>
+				<th style="font-weight: 500;">{{activity.activityId}}</th>	
+				<th style="font-weight: 500;">{{activity.name}}</th>
+				<th style="font-weight: 500;">{{activity.type}}</th>
+				<th class="text-center"><a><i class="fa fa-pencil"></i></a>&emsp;<a ng-click="deleteActivity(activity.activityId)"><i class="fa fa-ban"></i></a></th>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<nav>
+  <ul class="pager">
+	<li ng-show="currentPage > 1"><a href="" ng-click="getPrev()">Anterior</a></li>
+	<li ng-show="isNext()"><a href="" ng-click="getNext()">Siguiente</a></li>
+  </ul>
+</nav>

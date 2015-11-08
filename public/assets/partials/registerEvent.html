@@ -1,0 +1,68 @@
+<div class="row">
+	<div class="col-md-6">
+		<label>Buscar</label>
+		<input type="text" class="form-control" ng-model="search.$">
+	</div>
+	<div class="col-md-6">
+		<label>Paginación</label><br/>
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 5}" ng-click="getPages(5)">5</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 10}" ng-click="getPages(10)">10</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 25}" ng-click="getPages(25)">25</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 100}" ng-click="getPages(100)">100</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 0}" ng-click="getPages(0)">Todas</button>
+		</div>
+	</div>
+</div>
+<div class="divider half-margins"></div>
+<div class="table-responsive">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th style="cursor: pointer;" ng-click="changeFilter('login')">Login <span ng-show="orderBy=='login'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('dni')">DNI <span ng-show="orderBy=='dni'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('state')">Estado <span ng-show="orderBy=='state'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('registrationDate')">Fecha de Registro <span ng-show="orderBy=='registrationDate'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('place')">Plaza <span ng-show="orderBy=='place'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('placeOnQueue')">Plaza en cola <span ng-show="orderBy=='placeOnQueue'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody ng-repeat="user in data | filter:search">
+			<tr>
+				<th style="font-weight: 500;">{{user.login}}</th>
+				<th style="font-weight: 500;">{{user.dni}}</th>
+				<th style="font-weight: 500;"><span class="label" ng-class="classLabel(user.state)">{{stateFilter(user.state)}}</span></th>
+				<th style="font-weight: 500;">{{changeDate(user.registrationDate)}}</th>
+				<th style="font-weight: 500;">{{user.place}}</th>
+				<th style="font-weight: 500;">{{user.placeOnQueue}}</th>
+				<th class="text-center"><a ng-click="setPaid(user.userID)" ng-show="user.state == 'registered'"><i class="fa fa-money"></i></a>&emsp;<a  ng-hide="user.state == 'paid'" data-toggle="modal" data-target="#modalDelete" ng-click="view.login = user.login; view.id = user.userID"><i class="fa fa-ban"></i></a></th>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<nav>
+  <ul class="pager">
+	<li ng-show="currentPage > 1"><a href="" ng-click="getPrev()">Anterior</a></li>
+	<li ng-show="isNext()"><a href="" ng-click="getNext()">Siguiente</a></li>
+  </ul>
+</nav>
+
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Confirmar borrado</h4>
+      </div>
+      <div class="modal-body">
+        ¿Estas seguro de que deseas eliminar al <strong>{{view.login}}</strong> del evento?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" ng-click="removeRegister(view.id)">Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>

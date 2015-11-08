@@ -58,12 +58,6 @@
 	padding-bottom: 20px;
 	border-bottom: 1px solid #C4C8C9;
 }
-
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
-.ng-cloak, .x-ng-cloak,
-.ng-hide {
-    display: none !important;
-}
 /**	01. Resets
 *************************************************** **/
 button::-moz-focus-inner, 

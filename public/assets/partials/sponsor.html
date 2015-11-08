@@ -1,0 +1,59 @@
+<div class="row">
+	<div class="col-md-6">
+		<label>Buscar</label>
+		<input type="text" class="form-control" ng-model="search.$">
+	</div>
+	<div class="col-md-6">
+		<label>Paginación</label><br/>
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 5}" ng-click="getPages(5)">5</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 10}" ng-click="getPages(10)">10</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 25}" ng-click="getPages(25)">25</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 100}" ng-click="getPages(100)">100</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 0}" ng-click="getPages(0)">Todas</button>
+		</div>
+	</div>
+</div>
+<div class="divider half-margins"></div>
+<div class="table-responsive">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th style="cursor: pointer;" ng-click="changeFilter('sponsorId')">Id <span ng-show="orderBy=='sponsorId'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('event')">Evento <span ng-show="orderBy=='event'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('name')">Nombre <span ng-show="orderBy=='name'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('url')">URL <span ng-show="orderBy=='url'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('imageurl')">Imágen <span ng-show="orderBy=='imageurl'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody ng-repeat="sponsor in data | filter:search">
+			<tr>
+				<th style="font-weight: 500;">{{sponsor.sponsorId}}</th>
+				<th style="font-weight: 500;">{{sponsor.event}}</th>
+				<th style="font-weight: 500;">{{sponsor.name}}</th>
+				<th style="font-weight: 500;">{{sponsor.url}}</th>
+				<th style="font-weight: 500;"><img style="max-height: 100px;" src="{{sponsor.imageurl}}" width="100"></th>						
+				<th class="text-center"><a><i class="fa fa-pencil"></i></a>&emsp;<a data-toggle="modal" data-target="#modalDelete" ng-click="view.name = sponsor.name; view.id = sponsor.sponsorId"><i class="fa fa-ban"></i></a></th>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Confirmar borrado</h4>
+      </div>
+      <div class="modal-body">
+        ¿Estas seguro de que deseas borrar el sponsor <strong>{{view.name}}</strong>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" ng-click="deleteSponsor(view.id)">Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>

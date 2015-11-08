@@ -10,11 +10,14 @@
 		$scope.errors.loginCode = "";
 		$scope.errors.forgot = false;
 		$scope.errors.forgotCode = "";
+        $scope.loading = {};
+        $scope.loading.forgotten = false;
         
 		$scope.sendForgotten = function (email) {
 			$scope.view.sendRecover = false;
 			$scope.errors.forgot = false;
 			$scope.errors.forgotCode = "";
+            $scope.loading.forgotten = true;
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
 					url: $rootScope.config.apiUrl + '/api/user/passwordrecover',
@@ -22,6 +25,7 @@
 					data: { "contenido" : email },
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
+                    $scope.loading.forgotten = false;
 					if (data == "true") {
 						$scope.view.sendRecover = true;
 					} else {
@@ -32,10 +36,12 @@
 						}
 					}
 				}).error(function (data, status, headers, config) {
+                    $scope.loading.forgotten = false;
 					$scope.errors.forgot = true;
 					$scope.errors.forgotCode = data.exceptionCode;
 				});
 			} else {
+                $scope.loading.forgotten = false;
 				$scope.errors.forgot = true;
 				$scope.errors.forgotCode = "1";
 				$rootScope.createSession();
@@ -53,11 +59,14 @@
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
 					$cookieStore.put('FICOnCookie', data);
-					$location.path("/home");
+					if (data.secondpass) {
+						$location.path("/profile");
+					} else {
+						$location.path("/home");
+					}
 				}).error(function (data, status, headers, config) {
 					$scope.errors.login = true;
 					$scope.errors.loginCode = data.exceptionCode;
-					$rootScope.createSession();
 				});
 			} else {
 				$scope.errors.login = true;

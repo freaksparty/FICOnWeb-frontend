@@ -1,4 +1,4 @@
-var FICOnWeb = angular.module('FICOnWeb', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'textAngular']);
+var FICOnWeb = angular.module('FICOnWeb', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'textAngular', 'slick']);
 
 FICOnWeb.config(function ($sceProvider) {
     // Completely disable SCE.  For demonstration purposes only!
@@ -9,25 +9,59 @@ FICOnWeb.config(function ($sceProvider) {
 FICOnWeb.config(function ($routeProvider) {
     $routeProvider
         .when('/home', {
-			controller: 'homeCtrl',
-            templateUrl: 'assets/partials/home.html'
+		controller: 'homeCtrl',
+		templateUrl: 'assets/partials/home.html'
         })
         .when('/login', {
-            controller: 'loginCtrl',
-            templateUrl: 'assets/partials/login.html'
+		controller: 'loginCtrl',
+		templateUrl: 'assets/partials/login.html'
         })
-		.when('/register', {
-			controller: 'registerCtrl',
-            templateUrl: 'assets/partials/register.html'
+	.when('/register', {
+		controller: 'registerCtrl',
+		templateUrl: 'assets/partials/register.html'
         })
 		.when('/profile', {
-			controller: 'profileCtrl',
-            templateUrl: 'assets/partials/profile.html'
+		controller: 'profileCtrl',
+		templateUrl: 'assets/partials/profile.html'
         })
-		.when('/admin/news/add' , {
-			controller: 'newsaddCtrl',
-			templateUrl: 'assets/partials/newsadd.html'
-		})
+		.when('/rules', {
+		controller: 'rulesCtrl',
+            templateUrl: 'assets/partials/rules.html'
+        })
+	.when('/activity/:type/:id' , {
+		controller: 'showActivityCtrl',
+		templateUrl: 'assets/partials/showActivity.html'
+	})
+	.when('/admin/news/add' , {
+		controller: 'newsaddCtrl',
+		templateUrl: 'assets/partials/newsadd.html'
+	})
+	.when('/admin/news' , {
+		controller: 'newsCtrl',
+		templateUrl: 'assets/partials/news.html'
+	})
+	.when('/admin/users' , {
+		controller: 'usersCtrl',
+		templateUrl: 'assets/partials/users.html'
+	}).when('/admin/sponsors/add' , {
+		controller: 'sponsoraddCtrl',
+		templateUrl: 'assets/partials/sponsoradd.html'
+	}).when('/admin/sponsors/' , {
+		controller: 'sponsorCtrl',
+		templateUrl: 'assets/partials/sponsor.html'
+	})
+	.when('/admin/activities/add' , {
+		controller: 'activityaddCtrl',
+		templateUrl: 'assets/partials/activityadd.html'
+	})
+	.when('/admin/activities' , {
+		controller: 'activityCtrl',
+		templateUrl: 'assets/partials/activity.html'
+	})
+	.when('/admin/registerEvent' , {
+		controller: 'registerEventCtrl',
+		templateUrl: 'assets/partials/registerEvent.html'
+	})
         .otherwise({
             redirectTo: '/home'
         });
@@ -38,9 +72,24 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.vars.logged = false;
 	$rootScope.vars.userName = "";
 	$rootScope.vars.roles = [];
+	$rootScope.showEvent = {};
+	$rootScope.evento = 1;
     
-    $rootScope.config = {};
-    $rootScope.config.apiUrl = 'http://localhost:8080';
+	$rootScope.config = {};
+	$rootScope.config.apiUrl = 'http://freaksparty.org:8080';
+	
+	$rootScope.stateFilter = function (state) {
+		switch (state) {
+			case 'paid':
+				return 'Confirmado';
+			case 'registered':
+				return 'Pendiente de pago';
+			case 'inQueue':
+				return 'En cola';
+			default:
+				return 'error';
+		}
+	}
 	
 	$rootScope.isNumber = function (number) {
 		if (isNaN(number)) {
@@ -64,6 +113,15 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 		$http.get($rootScope.config.apiUrl + '/api/session')
 		.success(function(data, status, headers, config) {
 			$cookieStore.put('FICOnCookie', data);
+		}).error(function(data, status, headers, config) {
+			console.log('error al crear sesion');
+		});
+	};
+    
+	$rootScope.createAndMove = function() {
+		$http.get($rootScope.config.apiUrl + '/api/session')
+		.success(function(data, status, headers, config) {
+			$cookieStore.put('FICOnCookie', data);
 			$window.location.reload();
 			$location.path("/home");
             $rootScope.vars.validSession = true;
@@ -75,15 +133,15 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.isValidSession = function() {
         $http({
             url: $rootScope.config.apiUrl + '/api/session/isvalid',
-            method: "GET",
-            headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
-        }).success(function (data, status, headers, config) {
-            if (data == "false") {
-                $rootScope.createSession();
-            }
-        }).error(function (data, status, headers, config) {
-            $rootScope.createSession();
-        });
+			method: "GET",
+			headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
+		}).success(function (data, status, headers, config) {
+			if (data == "false") {
+				$rootScope.createAndMove();
+			}
+		}).error(function (data, status, headers, config) {
+			$rootScope.createAndMove();
+		});
 	};
 	
 	$rootScope.checkRoles = function(roles) {
@@ -102,14 +160,60 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 			$rootScope.vars.userName = "";
 		}
 	}
+	$rootScope.colorState = function (state) {
+		switch (state) {
+			case 'paid':
+				return '#2EFF00';
+			case 'registered':
+				return '#FFCC00';
+			case 'inQueue':
+				return '#FF0000';
+			default:
+				return 'error';
+		}
+	};	
+	$rootScope.showButton = function () {
+		if ($cookieStore.get('FICOnCookie')) {
+			if ($cookieStore.get('FICOnCookie').user !== null) {
+				$http({
+					url: $rootScope.config.apiUrl + '/api/registration/state/' + $rootScope.evento + '/' + $cookieStore.get('FICOnCookie').user,
+					method: "GET",
+					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
+				}).success(function (data, status, headers, config) {
+					$rootScope.showEvent = data;
+				}).error(function (data, status, headers, config) {
+					console.log('error get');
+				});
+			}
+		} else {
+			console.log('error');
+		}
+	}
+	
+	$rootScope.registerOnEvent = function () {
+		if ($cookieStore.get('FICOnCookie')) {
+			$http({
+				url: $rootScope.config.apiUrl + '/api/registration/' + $rootScope.evento + '/' + $cookieStore.get('FICOnCookie').user,
+				method: "POST",
+				headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
+			}).success(function (data, status, headers, config) {
+				$window.location.reload();
+			}).error(function (data, status, headers, config) {
+				if (data.exceptionCode == 14) $('#modalYoung').modal('toggle');
+			});
+		} else {
+			console.log('error');
+		}
+	}
 	
 	//función para comprobar la validez de las cookies en cada carga de página
 	$rootScope.$on('$routeChangeSuccess', function () {
+		$rootScope.showButton();
 		if ($cookieStore.get('FICOnCookie')) {
 			$rootScope.isValidSession();
 			$rootScope.isLogged();
 		} else {
-			$rootScope.createSession();
+			$rootScope.createAndMove();
 		};
 	});
 	

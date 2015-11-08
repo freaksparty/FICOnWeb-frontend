@@ -1,32 +1,24 @@
-<div id="middle" class="container">
-    <div class="white">
-		<nav>
-		  <ul class="pager">
-			<li ng-show="currentPage > 1"><a href="" ng-click="getPrev()">Anterior</a></li>
-			<li ng-show="isNext()"><a href="" ng-click="getNext()">Siguiente</a></li>
-		  </ul>
-		</nav>
-		<div ng-repeat="news in data" class="newsItem col-xs-12">
-			<div class="row" style="margin-bottom: 20px;">
-				<div class="col-xs-12">
-					<h3 class="bold" style="margin-bottom: 2px;">{{news.title}}</h3>
-					<span class="text-muted small">{{news.publishDate}} por <span style="color: #81BA10;">{{news.login}}</span></span>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-3" ng-show="news.imageurl">
-					<img class="img-responsive" src="{{news.imageurl}}">
-				</div>
-				<div class="col-sm-9">
-					<span ng-bind-html="news.content"></span>
-				</div>
-			</div>
+<div ng-bind-html="desc" class="col-xs-12">
+</div>
+<div ng-repeat="news in data" class="newsItem col-xs-12">
+	<div class="row" style="margin-bottom: 20px;">
+		<div class="col-xs-12">
+			<h3 class="bold" style="margin-bottom: 2px;">{{news.title}}</h3>
+			<span class="text-muted small">{{news.publishDate}} por <span style="color: #81BA10;">{{news.login}}</span></span>
 		</div>
-        <nav>
-		  <ul class="pager">
-			<li ng-show="currentPage > 1"><a href="" ng-click="getPrev()">Anterior</a></li>
-			<li ng-show="isNext()"><a href="" ng-click="getNext()">Siguiente</a></li>
-		  </ul>
-		</nav>
+	</div>
+	<div class="row">
+		<div class="col-sm-3" ng-show="news.imageurl">
+			<img class="img-responsive" src="{{news.imageurl}}">
+		</div>
+		<div class="col-sm-9">
+			<span ng-bind-html="news.content"></span>
+		</div>
 	</div>
 </div>
+<nav>
+  <ul class="pager">
+	<li ng-show="currentPage > 1"><a href="" ng-click="getPrev()">Anterior</a></li>
+	<li ng-show="isNext()"><a href="" ng-click="getNext()">Siguiente</a></li>
+  </ul>
+</nav>

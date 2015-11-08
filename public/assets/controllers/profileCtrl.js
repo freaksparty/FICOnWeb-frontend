@@ -6,6 +6,7 @@
 		$scope.view.oldPass = "";
 		$scope.view.newPass = "";
 		$scope.view.newPass2 = "";
+		$scope.view.dob = "";
 		$scope.data = {};
 		$scope.data.user = {};
 		$scope.errors = {};
@@ -14,6 +15,27 @@
 		$scope.errors.changeData = false;
 		$scope.errors.changeDataCode = "";
 
+		$scope.changeDate = function (date) {
+			return moment(date, 'DD-MM-YYYY/HH:mm:ss').format('DD-MM-YYYY'); 
+		}
+		
+		$scope.deleteUser = function () {	
+			if ($cookieStore.get('FICOnCookie')) {
+				$http({
+					url: $rootScope.config.apiUrl + '/api/user/' + $cookieStore.get('FICOnCookie').user,
+					method: "DELETE",
+					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
+				}).success(function (data, status, headers, config) {	
+					$('#modalDelete').modal('toggle');
+					$location.path("home");
+				}).error(function (data, status, headers, config) {
+					console.log('error delete');
+				});
+			} else {
+				console.log('error');
+			}
+		}
+		
 		$scope.getCurrentUser = function () {
 			if ($cookieStore.get('FICOnCookie')) {
 				if ($cookieStore.get('FICOnCookie').userId > 0) {
@@ -23,7 +45,7 @@
 						headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 					}).success(function (data, status, headers, config) {
 						$scope.data.user = data;
-						$scope.data.user.dob = $scope.data.user.dob.substring(1, $scope.data.user.dob.indexOf("/"));
+						$scope.view.dob = $scope.changeDate($scope.data.user.dob);
 					}).error(function (data, status, headers, config) {
 						$location.path("home");
 					});

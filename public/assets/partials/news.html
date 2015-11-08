@@ -1,0 +1,54 @@
+<div class="row">
+	<div class="col-md-6">
+		<label>Buscar</label>
+		<input type="text" class="form-control" ng-model="search.$">
+	</div>
+	<div class="col-md-6">
+		<!--<label>Paginación</label>
+		<div class="input-group">
+			<input type="number" class="form-control" ng-model="pagination">
+			<span class="input-group-btn">
+				<button class="btn btn-success" type="button" ng-click="getNews()"><i class="fa fa-check"></i></button>
+			</span>
+		</div>-->
+		<label>Paginación</label><br/>
+		<div class="btn-group">
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 5}" ng-click="getPages(5)">5</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 10}" ng-click="getPages(10)">10</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 25}" ng-click="getPages(25)">25</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 100}" ng-click="getPages(100)">100</button>
+		  <button type="button" class="btn btn-default" ng-class="{active : pagination == 0}" ng-click="getPages(0)">Todas</button>
+		</div>
+	</div>
+</div>
+<div class="divider half-margins"></div>
+<div class="table-responsive">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th style="cursor: pointer;" ng-click="changeFilter('newsItemId')">Id <span ng-show="orderBy=='newsItemId'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('title')">Título <span ng-show="orderBy=='title'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('publisher.login')">Autor <span ng-show="orderBy=='publisher.login'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('creationDate')">Fecha Creación <span ng-show="orderBy=='creationDate'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th style="cursor: pointer;" ng-click="changeFilter('publishDate')">Fecha Publicación <span ng-show="orderBy=='publishDate'"><i ng-show="desc==1" class="fa fa-sort-down"></i><i ng-show="desc==0" class="fa fa-sort-up"></i></span></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody ng-repeat="news in data | filter:search">
+			<tr>
+				<th style="font-weight: 500;">{{news.newsItemId}}</th>
+				<th style="font-weight: 500;">{{news.title}}</th>
+				<th style="font-weight: 500;">{{news.login}}</th>
+				<th style="font-weight: 500;">{{changeDate(news.creationDate)}}</th>
+				<th style="font-weight: 500;">{{changeDate(news.publishDate)}}</th>
+				<th class="text-center"><a><i class="fa fa-pencil"></i></a>&emsp;<a ng-click="deleteNews(news.newsItemId)"><i class="fa fa-ban"></i></a></th>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<nav>
+  <ul class="pager">
+	<li ng-show="currentPage > 1"><a href="" ng-click="getPrev()">Anterior</a></li>
+	<li ng-show="isNext()"><a href="" ng-click="getNext()">Siguiente</a></li>
+  </ul>
+</nav>
