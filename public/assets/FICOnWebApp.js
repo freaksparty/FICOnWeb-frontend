@@ -174,9 +174,9 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	};	
 	$rootScope.showButton = function () {
 		if ($cookieStore.get('FICOnCookie')) {
-			if ($cookieStore.get('FICOnCookie').user !== null) {
+			if ($cookieStore.get('FICOnCookie').userId > 0) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/registration/state/' + $rootScope.evento + '/' + $cookieStore.get('FICOnCookie').user,
+					url: $rootScope.config.apiUrl + '/api/registration/state/' + $rootScope.evento + '/' + $cookieStore.get('FICOnCookie').userId,
 					method: "GET",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {

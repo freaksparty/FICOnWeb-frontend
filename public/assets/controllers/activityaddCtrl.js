@@ -1,4 +1,4 @@
-f(unction () {
+(function () {
     var activityaddCtrl = function ($scope, $rootScope, $http, $cookieStore, $log, $location) {
         $scope.view = {};
 		$scope.view.activity = {};
