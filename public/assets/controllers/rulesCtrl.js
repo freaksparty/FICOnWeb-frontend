@@ -2,7 +2,7 @@
     var rulesCtrl = function ($scope, $rootScope, $http, $cookieStore) {
         $scope.data = {};		
 
-		$scope.getRules = function () {	
+		/*$scope.getRules = function () {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
 					url: $rootScope.config.apiUrl + '/api/event/1/rules',
@@ -16,10 +16,11 @@
 			} else {
 				console.log('error');
 			}
-		}
+		}*/
 		
         $scope.ctr = function () {
-			$scope.getRules();
+			//$scope.getRules();
+			$rootScope.getEventData($scope);
 		};
 
         $scope.ctr();

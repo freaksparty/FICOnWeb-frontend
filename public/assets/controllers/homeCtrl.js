@@ -55,27 +55,11 @@
 			}
 		}
 		
-		$scope.getDescription = function () {	
-			if ($cookieStore.get('FICOnCookie')) {
-				$http({
-					url: $rootScope.config.apiUrl + '/api/event/1/description',
-					method: "GET",
-					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
-				}).success(function (data, status, headers, config) {
-					$scope.desc = data;
-				}).error(function (data, status, headers, config) {
-					console.log('error get');
-				});
-			} else {
-				console.log('error');
-			}
-		}
-		
         $scope.ctr = function () {
             if ($routeParams.page) $scope.currentPage = $routeParams.page;
 			$scope.getSize();
 			$scope.getNews();
-			$scope.getDescription();
+			$rootScope.getEventData($scope);
 		};
 
         $scope.ctr();

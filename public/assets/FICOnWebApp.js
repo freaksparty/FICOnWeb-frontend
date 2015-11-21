@@ -76,7 +76,8 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.evento = 1;
     
 	$rootScope.config = {};
-	$rootScope.config.apiUrl = 'http://freaksparty.org:8080';
+	$rootScope.config.apiUrl = 'http://localhost:8080';
+	$rootScope.config.eventId = 1;
 	
 	$rootScope.stateFilter = function (state) {
 		switch (state) {
@@ -216,5 +217,23 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 			$rootScope.createAndMove();
 		};
 	});
+	
+	//Peticiones compartidas entre varias páginas
+	$rootScope.getEventData = function ($scope) {	
+			if ($cookieStore.get('FICOnCookie')) {
+				$http({
+					url: $rootScope.config.apiUrl + '/api/event/' + $rootScope.config.eventId,
+					method: "GET",
+					cache: true,
+					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
+				}).success(function (data, status, headers, config) {
+					$scope.event = data;
+				}).error(function (data, status, headers, config) {
+					console.log('error get');
+				});
+			} else {
+				console.log('error');
+			}
+		}
 	
 }]);
