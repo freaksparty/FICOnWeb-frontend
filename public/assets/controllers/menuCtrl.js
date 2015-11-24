@@ -26,7 +26,7 @@
 			}
 		};
 		
-		$scope.getConferences = function () {	
+		/*$scope.getConferences = function () {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
 					url: $rootScope.config.apiUrl + '/api/event/activityHeaders/1/query?type=conference',
@@ -72,12 +72,13 @@
 			} else {
 				console.log('error');
 			}
-		}
+		}*/
 		
         $scope.ctr = function () {		
-			$scope.getTournaments();
+			/*$scope.getTournaments();
 			$scope.getProductions();
-			$scope.getConferences();
+			$scope.getConferences();*/
+			$rootScope.getEventData($scope);
         };
 
         $scope.ctr();

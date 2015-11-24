@@ -218,22 +218,17 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 		};
 	});
 	
-	//Peticiones compartidas entre varias páginas
-	$rootScope.getEventData = function ($scope) {	
-			if ($cookieStore.get('FICOnCookie')) {
-				$http({
-					url: $rootScope.config.apiUrl + '/api/event/' + $rootScope.config.eventId,
-					method: "GET",
-					cache: true,
-					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
-				}).success(function (data, status, headers, config) {
-					$scope.event = data;
-				}).error(function (data, status, headers, config) {
-					console.log('error get');
-				});
-			} else {
-				console.log('error');
-			}
-		}
-	
+	//Peticiones compartidas entre varias páginas	
+	$rootScope.getEventData = function ($scope) {
+		$http({
+			url: $rootScope.config.apiUrl + '/api/event/' + $rootScope.config.eventId,
+			method: "GET",
+			cache: true,
+			headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
+		}).success(function (data, status, headers, config) {
+			$scope.event = data;
+		}).error(function (data, status, headers, config) {
+			console.log('error get');
+		});
+	}
 }]);
