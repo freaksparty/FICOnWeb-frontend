@@ -1,10 +1,10 @@
 <div ng-bind-html="event.description" class="col-xs-12">
 </div>
-<div ng-repeat="news in data" class="newsItem col-xs-12">
+<div ng-repeat="news in news.list" class="newsItem col-xs-12">
 	<div class="row" style="margin-bottom: 20px;">
 		<div class="col-xs-12">
 			<h3 class="bold" style="margin-bottom: 2px;">{{news.title}}</h3>
-			<span class="text-muted small">{{news.publishDate}} por <span style="color: #81BA10;">{{news.login}}</span></span>
+			<span class="text-muted small">{{news.publishDate}} por <span style="color: #81BA10;">{{news.publisher.login}}</span></span>
 		</div>
 	</div>
 	<div class="row">
