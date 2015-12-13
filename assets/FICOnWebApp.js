@@ -73,11 +73,16 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.vars.userName = "";
 	$rootScope.vars.roles = [];
 	$rootScope.showEvent = {};
-	$rootScope.evento = 1;
+	$rootScope.evento = 3;
     
 	$rootScope.config = {};
 	$rootScope.config.apiUrl = 'http://localhost:8080';
-	$rootScope.config.eventId = 1;
+	$rootScope.config.eventId = 3;
+	
+	var $eventId = $location.search().eventId;
+	if($eventId) {
+	    $rootScope.evento = $rootScope.config.eventId = $eventId;
+	}
 	
 	$rootScope.stateFilter = function (state) {
 		switch (state) {
