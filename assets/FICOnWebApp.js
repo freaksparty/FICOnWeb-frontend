@@ -73,15 +73,14 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.vars.userName = "";
 	$rootScope.vars.roles = [];
 	$rootScope.showEvent = {};
-	$rootScope.evento = 3;
     
 	$rootScope.config = {};
 	$rootScope.config.apiUrl = 'http://localhost:8080';
-	$rootScope.config.eventId = 3;
+	$rootScope.config.eventId = 1;
 	
 	var $eventId = $location.search().eventId;
 	if($eventId) {
-	    $rootScope.evento = $rootScope.config.eventId = $eventId;
+	    $rootScope.config.eventId = $eventId;
 	}
 	
 	$rootScope.stateFilter = function (state) {
@@ -182,7 +181,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 		if ($cookieStore.get('FICOnCookie')) {
 			if ($cookieStore.get('FICOnCookie').userId > 0) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/registration/state/' + $rootScope.evento + '/' + $cookieStore.get('FICOnCookie').userId,
+					url: $rootScope.config.apiUrl + '/api/registration/state/' + $rootScope.config.eventId + '/' + $cookieStore.get('FICOnCookie').userId,
 					method: "GET",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
@@ -199,7 +198,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.registerOnEvent = function () {
 		if ($cookieStore.get('FICOnCookie')) {
 			$http({
-				url: $rootScope.config.apiUrl + '/api/registration/' + $rootScope.evento + '/' + $cookieStore.get('FICOnCookie').user,
+				url: $rootScope.config.apiUrl + '/api/registration/' + $rootScope.config.eventId + '/' + $cookieStore.get('FICOnCookie').user,
 				method: "POST",
 				headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 			}).success(function (data, status, headers, config) {

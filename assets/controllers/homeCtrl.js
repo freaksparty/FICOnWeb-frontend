@@ -21,24 +21,7 @@
 		$scope.getNext = function () {
 			$scope.currentPage = parseInt($scope.currentPage)+1;
             $location.url("home?page=" + $scope.currentPage);
-		}
-		
-		/*$scope.getSize = function () {	
-			if ($cookieStore.get('FICOnCookie')) {
-				$http({
-					url: $rootScope.config.apiUrl + '/api/event/news/published/size/1',
-					method: "GET",
-					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
-				}).success(function (data, status, headers, config) {
-					$scope.size = data;
-				}).error(function (data, status, headers, config) {
-					console.log('error get');
-				});
-			} else {
-				console.log('error');
-			}
-		}*/
-		
+		}		
 		
 		$scope.getNews = function () {	
 			$http({
@@ -50,7 +33,7 @@
 			}).success(function (data, status, headers, config) {
 				$scope.news = data;
 			}).error(function (data, status, headers, config) {
-				console.log('error get');
+				console.log('Error getNews('+status+') ' + data);
 			});
 		}
 		

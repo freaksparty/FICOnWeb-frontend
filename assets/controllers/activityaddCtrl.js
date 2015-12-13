@@ -12,7 +12,7 @@
 		$scope.publish = function (activity) {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/event/activity/1',
+					url: $rootScope.config.apiUrl + '/api/event/activity/' + $rootScope.config.eventId,
 					method: "POST",
 					data: { "name" : activity.name, "imageurl" : activity.image, "description" : activity.description, "numParticipants" : 500, "oficial": activity.oficial, "type" : activity.type },
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }

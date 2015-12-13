@@ -2,7 +2,7 @@
     var registerEventCtrl = function ($scope, $rootScope, $cookieStore, $http) {
         $scope.view = {};
 		$scope.data = {};
-		$scope.evento = 1;
+ 		$scope.evento = $rootScope.config.eventId;
 		$scope.currentPage = 1;
 		$scope.pagination = 5;
 		$scope.size = 0;
@@ -50,7 +50,7 @@
 		$scope.getSize = function () {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/event/registrations/size/' + $scope.evento + '/all', 
+					url: $rootScope.config.apiUrl + '/api/event/registrations/size/' + $rootScope.config.eventId + '/all', 
 					method: "GET",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
@@ -66,13 +66,13 @@
 		$scope.setPaid = function (userId) {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/registration/setPaid/' + $scope.evento + '/' + userId, 
+					url: $rootScope.config.apiUrl + '/api/registration/setPaid/' + $rootScope.config.eventId + '/' + userId, 
 					method: "PUT",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
 					$scope.ctr();
 				}).error(function (data, status, headers, config) {
-					console.log('error get');
+					console.log('Error setPaid() ' + status + ': ' + data);
 				});
 			} else {
 				console.log('error');
@@ -88,7 +88,7 @@
 		$scope.removeRegister = function (userId) {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/registration/' + $scope.evento + '/' + userId, 
+					url: $rootScope.config.apiUrl + '/api/registration/' + $rootScope.config.eventId + '/' + userId, 
 					method: "DELETE",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
@@ -105,7 +105,7 @@
 		$scope.getUsers = function () {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/event/registrations/' + $scope.evento + '/query?page=' + $scope.currentPage + '&pageTam=' + $scope.pagination + '&orderBy=' + $scope.orderBy + '&desc=' + $scope.desc + '&state=all', 
+					url: $rootScope.config.apiUrl + '/api/event/registrations/' + $rootScope.config.eventId + '/query?page=' + $scope.currentPage + '&pageTam=' + $scope.pagination + '&orderBy=' + $scope.orderBy + '&desc=' + $scope.desc + '&state=all', 
 					method: "GET",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {

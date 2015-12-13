@@ -4,7 +4,7 @@
 		$scope.data.tournaments = [];
 		$scope.data.productions = [];
 		$scope.data.conferences = [];
-		$scope.evento = 2;
+		//$scope.evento = 2;
         	
 		$scope.logout = function () {
 			if ($cookieStore.get('FICOnCookie')) {

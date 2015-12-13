@@ -1,5 +1,5 @@
 (function () {
-    var activityCtrl = function ($scope, $cookieStore, $http) {
+    var activityCtrl = function ($scope, $rootScope, $cookieStore, $http) {
         $scope.view = {};
 		$scope.data = {};
 		$scope.currentPage = 1;
@@ -45,7 +45,7 @@
 		$scope.getSize = function () {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/event/activityTAM/1/all',
+					url: $rootScope.config.apiUrl + '/api/event/activityTAM/' + $rootScope.config.eventId + '/all',
 					method: "GET",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
@@ -77,7 +77,7 @@
 		$scope.getActivities = function () {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/event/activityHeaders/1/query?page=' + $scope.currentPage + '&pageTam=' + $scope.pagination + '&orderBy=' + $scope.orderBy + '&desc=' + $scope.desc,
+					url: $rootScope.config.apiUrl + '/api/event/activityHeaders/' + $rootScope.config.eventId + '/query?page=' + $scope.currentPage + '&pageTam=' + $scope.pagination + '&orderBy=' + $scope.orderBy + '&desc=' + $scope.desc,
 					method: "GET",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
@@ -98,6 +98,6 @@
         $scope.ctr();
     }
 
-    activityCtrl.$inject = ['$scope', '$cookieStore', '$http'];
+    activityCtrl.$inject = ['$scope', '$rootScope', '$cookieStore', '$http'];
     angular.module('FICOnWeb').controller('activityCtrl', activityCtrl);
 }());

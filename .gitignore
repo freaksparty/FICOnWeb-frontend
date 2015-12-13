@@ -31,4 +31,6 @@ tests.sh
 monitor/*
 
 #cfg production
-cfg.json
+cfg.jso
+
+.directory

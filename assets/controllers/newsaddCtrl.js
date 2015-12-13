@@ -42,7 +42,7 @@
 			}
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/event/news/1',
+					url: $rootScope.config.apiUrl + '/api/event/news/' + $rootScope.config.eventId,
 					method: "POST",
 					data: { "title" : news.title, "imageurl" : news.image, "content" : news.content, "priorityHours" : 0, "publishDate": news.date },
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
