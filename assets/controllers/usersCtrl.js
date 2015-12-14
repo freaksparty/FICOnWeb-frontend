@@ -1,11 +1,11 @@
 (function () {
-    var usersCtrl = function ($scope, $cookieStore, $http) {
+    var usersCtrl = function ($scope, $rootScope, $cookieStore, $http) {
         $scope.view = {};
 		$scope.data = {};
 		$scope.view.login = "";
 		$scope.view.id = "";
 		$scope.currentPage = 1;
-		$scope.pagination = 5;
+		$scope.pagination = 50;
 		$scope.size = 0;
 		$scope.orderBy = "login";
 		$scope.desc = 0;
@@ -105,6 +105,6 @@
         $scope.ctr();
     }
 
-    usersCtrl.$inject = ['$scope', '$cookieStore', '$http'];
+    usersCtrl.$inject = ['$scope', '$rootScope', '$cookieStore', '$http'];
     angular.module('FICOnWeb').controller('usersCtrl', usersCtrl);
 }());

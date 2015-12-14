@@ -191,7 +191,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 				});
 			}
 		} else {
-			console.log('error');
+			console.log('Error showButton, no cookie.');
 		}
 	}
 	
@@ -207,7 +207,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 				if (data.exceptionCode == 14) $('#modalYoung').modal('toggle');
 			});
 		} else {
-			console.log('error');
+			console.log('Error registerOnEvent(), no cookie.');
 		}
 	}
 	
@@ -218,9 +218,16 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 			$rootScope.isValidSession();
 			$rootScope.isLogged();
 		} else {
-			$rootScope.createAndMove();
+			// $rootScope.createAndMove();
 		};
 	});
+	
+	$rootScope.getSessionId = function () {
+	    if(typeof $cookieStore.get('FICOnCookie') === 'undefined')
+		return null;
+	    else
+		return $cookieStore.get('FICOnCookie').sessionId
+	}
 	
 	//Peticiones compartidas entre varias páginas	
 	$rootScope.getEventData = function ($scope) {
@@ -228,7 +235,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 			url: $rootScope.config.apiUrl + '/api/event/' + $rootScope.config.eventId,
 			method: "GET",
 			cache: true,
-			headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
+			headers: { "sessionId" :  $rootScope.getSessionId() }
 		}).success(function (data, status, headers, config) {
 			$scope.event = data;
 		}).error(function (data, status, headers, config) {

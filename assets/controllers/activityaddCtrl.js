@@ -12,17 +12,17 @@
 		$scope.publish = function (activity) {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/event/activity/' + $rootScope.config.eventId,
+					url: $rootScope.config.apiUrl + '/api/event/' + $rootScope.config.eventId + '/activity/',
 					method: "POST",
 					data: { "name" : activity.name, "imageurl" : activity.image, "description" : activity.description, "numParticipants" : 500, "oficial": activity.oficial, "type" : activity.type },
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
 					$location.path("/home");
 				}).error(function (data, status, headers, config) {
-					console.log('actividad  no creada');
+					console.log('Actividad  no creada');
 				});
 			} else {
-				console.log('error');
+				console.log('Error activityaddCtrl.publish(): No hay cookie.');
 			}
 		}
 

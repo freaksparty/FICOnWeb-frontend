@@ -29,7 +29,7 @@
 				    '/news/published/' + $scope.currentPage + '/' + $scope.pagination,
 				method: "GET",
 				cache: true,
-				headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
+				headers: { "sessionId" :  $rootScope.getSessionId() }
 			}).success(function (data, status, headers, config) {
 				$scope.news = data;
 			}).error(function (data, status, headers, config) {

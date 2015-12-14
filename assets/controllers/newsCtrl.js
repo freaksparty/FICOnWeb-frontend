@@ -49,7 +49,7 @@
 		$scope.getSize = function () {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/event/news/all/size/1',
+					url: $rootScope.config.apiUrl + '/api/event/news/all/size/' + $rootScope.config.eventId,
 					method: "GET",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
@@ -79,21 +79,17 @@
 		}
 		
 		$scope.getNews = function () {	
-			if ($cookieStore.get('FICOnCookie')) {
-				$http({
-					url: $rootScope.config.apiUrl + '/api/event/' +
-						$rootScope.config.eventId + '/news/query?page=' + $scope.currentPage + 
-						'&pageTam=' + $scope.pagination + '&orderBy=' + $scope.orderBy + '&desc=' + $scope.desc,
-					method: "GET",
-					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
-				}).success(function (data, status, headers, config) {
-					$scope.data = data;
-				}).error(function (data, status, headers, config) {
-					console.log('error get');
-				});
-			} else {
-				console.log('error');
-			}
+			$http({
+				url: $rootScope.config.apiUrl + '/api/event/' +
+					$rootScope.config.eventId + '/news/query?page=' + $scope.currentPage + 
+					'&pageTam=' + $scope.pagination + '&orderBy=' + $scope.orderBy + '&desc=' + $scope.desc,
+				method: "GET",
+				headers: { "sessionId" :  $rootScope.getSessionId() }
+			}).success(function (data, status, headers, config) {
+				$scope.data = data;
+			}).error(function (data, status, headers, config) {
+				console.log('Error getNews() ' + status + ': ' + data);
+			});
 		}
 		
         $scope.ctr = function () {

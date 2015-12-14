@@ -76,7 +76,10 @@
         }
 
         $scope.ctr = function () {
-		};
+		if ($rootScope.getSessionId() == null) {
+		    $rootScope.createSession();
+		}
+	};
 
         $scope.ctr();
     }

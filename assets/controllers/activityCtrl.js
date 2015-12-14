@@ -45,7 +45,7 @@
 		$scope.getSize = function () {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/event/activityTAM/' + $rootScope.config.eventId + '/all',
+					url: $rootScope.config.apiUrl + '/api/event/' + $rootScope.config.eventId + '/activityTAM/all',
 					method: "GET",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
@@ -77,7 +77,7 @@
 		$scope.getActivities = function () {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/event/activityHeaders/' + $rootScope.config.eventId + '/query?page=' + $scope.currentPage + '&pageTam=' + $scope.pagination + '&orderBy=' + $scope.orderBy + '&desc=' + $scope.desc,
+					url: $rootScope.config.apiUrl + '/api/event/' + $rootScope.config.eventId + '/activityHeaders/query?page=' + $scope.currentPage + '&pageTam=' + $scope.pagination + '&orderBy=' + $scope.orderBy + '&desc=' + $scope.desc,
 					method: "GET",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
