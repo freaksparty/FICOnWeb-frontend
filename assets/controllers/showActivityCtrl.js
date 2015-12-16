@@ -3,20 +3,9 @@
 		$scope.data = {};
 		$scope.type = '';
 		
-		$scope.getActivity = function () {	
-			if ($cookieStore.get('FICOnCookie')) {
-				$http({
-					url: $rootScope.config.apiUrl + '/api/activity/' + $routeParams.id,
-					method: "GET",
-					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
-				}).success(function (data, status, headers, config) {
-					$scope.data = data;
-				}).error(function (data, status, headers, config) {
-					console.log('error get');
-				});
-			} else {
-				console.log('error');
-			}
+		$scope.getActivity = function() {
+		    $rootScope.getUri('/api/activity/{eventId}',
+				    function (data, status, headers, config) {$scope.data = data;});
 		}
 		
         $scope.ctr = function () {		

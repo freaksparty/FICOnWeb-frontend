@@ -114,13 +114,18 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 		} else return false;
 	}
 
+// 	$rootScope.createSession = function() {
+// 		$http.get($rootScope.config.apiUrl + '/api/session')
+// 		.success(function(data, status, headers, config) {
+// 			$cookieStore.put('FICOnCookie', data);
+// 		}).error(function(data, status, headers, config) {
+// 			console.log('error al crear sesion');
+// 		});
+// 	};
+	
 	$rootScope.createSession = function() {
-		$http.get($rootScope.config.apiUrl + '/api/session')
-		.success(function(data, status, headers, config) {
-			$cookieStore.put('FICOnCookie', data);
-		}).error(function(data, status, headers, config) {
-			console.log('error al crear sesion');
-		});
+		this.getUri('/api/session', function(data, status, headers, config)
+			{$cookieStore.put('FICOnCookie', data);});
 	};
     
 	$rootScope.createAndMove = function() {
@@ -231,15 +236,19 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	
 	//Peticiones compartidas entre varias páginas	
 	$rootScope.getEventData = function ($scope) {
+		this.getUri('/api/event/{eventId}', function (data, status, headers, config) {$scope.event=data;});
+	}
+	
+	$rootScope.getUri = function(uri, callback) {
+		uri = $rootScope.config.apiUrl + uri.replace("{eventId}", $rootScope.config.eventId);
 		$http({
-			url: $rootScope.config.apiUrl + '/api/event/' + $rootScope.config.eventId,
+			url: uri,
 			method: "GET",
 			cache: true,
 			headers: { "sessionId" :  $rootScope.getSessionId() }
-		}).success(function (data, status, headers, config) {
-			$scope.event = data;
-		}).error(function (data, status, headers, config) {
-			console.log('error get');
+		}).success(callback).error(function (data, status, headers, config) {
+		    console.e
+			console.log('Error rootScope.getUri('+uri+') ['+status+']: '+data);
 		});
 	}
 }]);
