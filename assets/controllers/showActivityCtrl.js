@@ -4,7 +4,7 @@
 		$scope.type = '';
 		
 		$scope.getActivity = function() {
-		    $rootScope.getUri('/api/activity/{eventId}',
+		    $rootScope.getUri('/api/activity/' + $routeParams.id,
 				    function (data, status, headers, config) {$scope.data = data;});
 		}
 		
