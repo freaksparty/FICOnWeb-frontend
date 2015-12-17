@@ -20,14 +20,18 @@ FICOnWeb.config(function ($routeProvider) {
 		controller: 'registerCtrl',
 		templateUrl: 'assets/partials/register.html'
         })
-		.when('/profile', {
+	.when('/profile', {
 		controller: 'profileCtrl',
 		templateUrl: 'assets/partials/profile.html'
         })
-		.when('/rules', {
+	.when('/rules', {
 		controller: 'rulesCtrl',
-            templateUrl: 'assets/partials/rules.html'
+		templateUrl: 'assets/partials/rules.html'
         })
+	.when('/admin/event/:id?', {
+		controller:  'editeventCtrl',
+		templateUrl: 'assets/partials/eventeditor.html'
+	})
 	.when('/activity/:type/:id' , {
 		controller: 'showActivityCtrl',
 		templateUrl: 'assets/partials/showActivity.html'
@@ -81,6 +85,10 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	var $eventId = $location.search().eventId;
 	if($eventId) {
 	    $rootScope.config.eventId = $eventId;
+	    $cookieStore.put('FICOnEventId', $eventId);
+	}
+	if($cookieStore.get('FICOnEventId')) {
+	    $rootScope.config.eventId = $cookieStore.get('FICOnEventId');
 	}
 	
 	$rootScope.stateFilter = function (state) {
@@ -113,15 +121,6 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 			}
 		} else return false;
 	}
-
-// 	$rootScope.createSession = function() {
-// 		$http.get($rootScope.config.apiUrl + '/api/session')
-// 		.success(function(data, status, headers, config) {
-// 			$cookieStore.put('FICOnCookie', data);
-// 		}).error(function(data, status, headers, config) {
-// 			console.log('error al crear sesion');
-// 		});
-// 	};
 	
 	$rootScope.createSession = function() {
 		this.getUri('/api/session', function(data, status, headers, config)
@@ -239,16 +238,29 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 		this.getUri('/api/event/{eventId}', function (data, status, headers, config) {$scope.event=data;});
 	}
 	
-	$rootScope.getUri = function(uri, callback) {
+	$rootScope.getUriErrHandler = function(uri, callback, errorhandler) {
 		uri = $rootScope.config.apiUrl + uri.replace("{eventId}", $rootScope.config.eventId);
 		$http({
 			url: uri,
 			method: "GET",
 			cache: true,
 			headers: { "sessionId" :  $rootScope.getSessionId() }
-		}).success(callback).error(function (data, status, headers, config) {
-		    console.e
+		}).success(callback).error(errorhandler);
+	}
+	
+	$rootScope.getUri = function(uri, callback) {
+		this.getUriErrHandler(uri, callback, function (data, status, headers, config) {
 			console.log('Error rootScope.getUri('+uri+') ['+status+']: '+data);
 		});
 	}
+	
+	$rootScope.postUri = function(uri, data, callback, errorhandler, verb) {
+		if(typeof verb === 'undefined') verb = 'POST';
+		if(typeof errorhandler === 'undefined') errorhandler = function(data, status) {
+			console.log('Error rootScope.postUri('+uri+') '+verb+' ['+status+']: '+data);
+		};
+		uri = $rootScope.config.apiUrl + uri.replace("{eventId}", $rootScope.config.eventId);
+		$http({url: uri,method:verb,data: data,headers:{"sessionId":$rootScope.getSessionId()}}).success(callback).error(errorhandler);
+	}
+	
 }]);
