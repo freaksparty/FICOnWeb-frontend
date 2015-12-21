@@ -42,7 +42,7 @@
 
 	<body>
 		<!-- TOP BAR -->
-		<div id="topBar">
+		<div id="topBar" ng-cloak>
 			<div class="container">
 				<div class="btn-group pull-right" ng-controller="menuCtrl">
 					<button class="dropdown-toggle language" type="button" data-toggle="dropdown">
@@ -128,17 +128,19 @@
 									</li>
 								</ul>
 							</li>
-							<li class="dropdown" ng-show="(vars.roles.indexOf('Admin') != -1)">
+							<li class="dropdown" ng-show="(vars.roles.indexOf('Admin') != -1)" ng-cloak>
 								<a class="dropdown-toggle" href="#">Administración<i class="fa fa-angle-down"></i></a>
 								<ul class="dropdown-menu">
+									<li><label>Id evento: {{config.eventId}}</label></li>
+									<li><a href="#/admin/event/{{config.eventId}}">Modificar evento</a></li>
 									<li><a href="#/admin/registerEvent">Registros</a></li>
-									<li class="dropdown">
+									<!--<li class="dropdown">
 										<a href="#">Eventos <i class="fa fa-angle-right"></i></a>
 										<ul class="dropdown-menu">
 											<li><a href="#">Gestionar</a></li>
 											<li><a href="#">Añadir</a></li>
 										</ul>
-									</li>
+									</li>-->
 									<li class="dropdown">
 										<a href="#">Sponsors <i class="fa fa-angle-right"></i></a>
 										<ul class="dropdown-menu">
@@ -264,6 +266,7 @@
 		<script src="assets/controllers/sponsorCtrl.js"></script>
 		<script src="assets/controllers/showSponsorsCtrl.js"></script>
 		<script src="assets/controllers/registerEventCtrl.js"></script>
+		<script src="assets/controllers/editeventCtrl.js"></script>
 		
 		<script type="text/javascript" src="assets/js/scripts.js"></script>
 		
