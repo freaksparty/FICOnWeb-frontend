@@ -41,7 +41,7 @@
 				<th style="font-weight: 500;">{{news.login}}</th>
 				<th style="font-weight: 500;">{{changeDate(news.creationDate)}}</th>
 				<th style="font-weight: 500;">{{changeDate(news.publishDate)}}</th>
-				<th class="text-center"><a><i class="fa fa-pencil"></i></a>&emsp;<a ng-click="deleteNews(news.newsItemId)"><i class="fa fa-ban"></i></a></th>
+				<th class="text-center"><a href="#/admin/news/{{news.newsItemId}}"><i class="fa fa-pencil"></i></a>&emsp;<a ng-click="deleteNews(news.newsItemId)"><i class="fa fa-ban"></i></a></th>
 			</tr>
 		</tbody>
 	</table>

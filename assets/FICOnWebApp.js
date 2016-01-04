@@ -37,11 +37,15 @@ FICOnWeb.config(function ($routeProvider) {
 		templateUrl: 'assets/partials/showActivity.html'
 	})
 	.when('/admin/news/add' , {
-		controller: 'newsaddCtrl',
-		templateUrl: 'assets/partials/newsadd.html'
+		controller: 'editorNewsCtrl',
+		templateUrl: 'assets/partials/newseditor.html'
+	})
+	.when('/admin/news/:id', {
+		controller: 'editorNewsCtrl',
+		templateUrl: 'assets/partials/newseditor.html'
 	})
 	.when('/admin/news' , {
-		controller: 'newsCtrl',
+		controller: 'adminNewsCtrl',
 		templateUrl: 'assets/partials/news.html'
 	})
 	.when('/admin/users' , {
@@ -53,8 +57,7 @@ FICOnWeb.config(function ($routeProvider) {
 	}).when('/admin/sponsors/' , {
 		controller: 'sponsorCtrl',
 		templateUrl: 'assets/partials/sponsor.html'
-	})
-	.when('/admin/activities/add' , {
+	}).when('/admin/activities/add' , {
 		controller: 'activityaddCtrl',
 		templateUrl: 'assets/partials/activityadd.html'
 	})
@@ -77,10 +80,11 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.vars.userName = "";
 	$rootScope.vars.roles = [];
 	$rootScope.showEvent = {};
+	$rootScope.event = {};
     
 	$rootScope.config = {};
-	$rootScope.config.apiUrl = 'http://localhost:8080';
-	$rootScope.config.eventId = 1;
+	$rootScope.config.apiUrl = 'http://dev.freaksparty.org:8080';
+	$rootScope.config.eventId = 3;
 	
 	var $eventId = $location.search().eventId;
 	if($eventId) {
@@ -235,7 +239,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	
 	//Peticiones compartidas entre varias páginas	
 	$rootScope.getEventData = function ($scope) {
-		this.getUri('/api/event/{eventId}', function (data, status, headers, config) {$scope.event=data;});
+		this.getUri('/api/event/{eventId}', function (data) {$rootScope.event=$scope.event=data;});
 	}
 	
 	$rootScope.getUriErrHandler = function(uri, callback, errorhandler) {

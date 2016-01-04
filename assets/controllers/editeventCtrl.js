@@ -37,6 +37,7 @@
 	$scope.format = 'dd-MM-yyyy';
 	
 	$scope.send = function (event) {
+		$scope.view.event.registrationOpenDate = null;
 		if($routeParams.id) {
 			$rootScope.postUri('/api/event/'+$routeParams.id, $scope.view.event, function(){$location.path("/home");}, undefined, 'PUT');
 		} else {
@@ -45,19 +46,19 @@
 	}
 
         $scope.ctr = function () {
-			if($routeParams.id) {
-				$rootScope.getUri('/api/event/{eventId}', function(data) {
-					$scope.view.event.name = data.name;
-					$scope.view.event.normas = data.rules;
-					$scope.view.event.description = data.description;
-					//$scope.view.event.registrationOpenDate = data.openInscriptionDate;
-					$scope.view.event.registrationOpenDate = null;
-					$scope.update();
-				});
-			} else {
+		if($routeParams.id) {
+			$rootScope.getUri('/api/event/{eventId}', function(data) {
+				$scope.view.event.name = data.name;
+				$scope.view.event.normas = data.rules;
+				$scope.view.event.description = data.description;
+				//$scope.view.event.registrationOpenDate = data.openInscriptionDate;
+				$scope.view.event.registrationOpenDate = null;
 				$scope.update();
-			}
-		};
+			});
+		} else {
+			$scope.update();
+		}
+	};
 
         $scope.ctr();
     }
