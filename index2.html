@@ -65,7 +65,7 @@
 					</ul>
 				</div>
 				<button ng-show="!vars.logged" class="btn btn-success btn-xs pull-right" type="button" style="margin-top: 3px; margin-right: 10px;" ng-disabled="true">Regístrate para inscribirte</button>
-				<button ng-show="vars.logged" class="btn btn-success btn-xs pull-right" type="button" style="margin-top: 3px; margin-right: 10px;" ng-disabled="!showEvent.open || !vars.logged || showEvent.state != null" ng-click="registerOnEvent()";"><span ng-show="showEvent.state !== null && showEvent.open"><i class="fa fa-circle" style="color: {{colorState(showEvent.state)}}"></i>Estado: {{stateFilter(showEvent.state)}} / Plaza: {{showEvent.place}}</span><span ng-show="showEvent.state === null && showEvent.open">Regístrate</span><span ng-show="!showEvent.open">Registros cerrados</span></button>
+				<button ng-show="vars.logged" class="btn btn-success btn-xs pull-right" type="button" style="margin-top: 3px; margin-right: 10px;" ng-disabled="!showEvent.open || !vars.logged || showEvent.state != null" ng-click="registerOnEvent()";"><span ng-show="showEvent.state !== null && showEvent.open"><i class="fa fa-circle" style="color: {{colorState(showEvent.state)}}"></i>Estado: {{stateFilter(showEvent.state)}} / Plaza: {{showEvent.place}}</span><span ng-show="showEvent.state === null && showEvent.open">¡Consigue tu plaza!</span><span ng-show="!showEvent.open">Registros cerrados</span></button>
 			</div>
 		</div>
 		<!-- /TOP BAR -->

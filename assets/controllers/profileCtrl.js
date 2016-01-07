@@ -22,7 +22,7 @@
 		$scope.deleteUser = function () {	
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/user/' + $cookieStore.get('FICOnCookie').user,
+					url: $rootScope.config.apiUrl + '/api/user/' + $cookieStore.get('FICOnCookie').userId,
 					method: "DELETE",
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {	
@@ -63,7 +63,7 @@
 			$scope.errors.changeDataCode = "";
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/user/' + $cookieStore.get('FICOnCookie').user ,
+					url: $rootScope.config.apiUrl + '/api/user/' + $cookieStore.get('FICOnCookie').userId ,
 					method: "PUT",
 					data: $scope.data.user,
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
@@ -84,7 +84,7 @@
 			$scope.errors.recoverPassCode = "";
 			if ($cookieStore.get('FICOnCookie')) {
 				$http({
-					url: $rootScope.config.apiUrl + '/api/user/changePassword/' + $cookieStore.get('FICOnCookie').user ,
+					url: $rootScope.config.apiUrl + '/api/user/changePassword/' + $cookieStore.get('FICOnCookie').userId,
 					method: "POST",
 					data: { "oldPassword" : oldPassword, "newPassword" : newPassword},
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
@@ -101,15 +101,15 @@
 				$rootScope.createSession();
 			}
         };
-		
-        $(function () {
-          $('[data-toggle="tooltip"]').tooltip()
-        });
+
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+	});
         
-        $scope.ctr = function () {
-			$scope.getCurrentUser();
-        };
-		
+	$scope.ctr = function () {
+		$scope.getCurrentUser();
+	};
+
         $scope.ctr();
     }
 

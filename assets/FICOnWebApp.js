@@ -83,7 +83,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.event = {};
     
 	$rootScope.config = {};
-	$rootScope.config.apiUrl = 'http://dev.freaksparty.org:8080';
+	$rootScope.config.apiUrl = 'http://dev.ficonlan.es:8080';
 	$rootScope.config.eventId = 3;
 	
 	var $eventId = $location.search().eventId;
@@ -206,7 +206,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.registerOnEvent = function () {
 		if ($cookieStore.get('FICOnCookie')) {
 			$http({
-				url: $rootScope.config.apiUrl + '/api/registration/' + $rootScope.config.eventId + '/' + $cookieStore.get('FICOnCookie').user,
+				url: $rootScope.config.apiUrl + '/api/registration/' + $rootScope.config.eventId + '/' + $cookieStore.get('FICOnCookie').userId,
 				method: "POST",
 				headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 			}).success(function (data, status, headers, config) {
