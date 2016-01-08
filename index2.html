@@ -34,7 +34,7 @@
 		<link href="assets/css/essentials.css" rel="stylesheet" type="text/css" />
 		<link href="assets/css/layout.css" rel="stylesheet" type="text/css" />
 		<link href="assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" />
-		
+
 		<!-- Modernizr -->
 		<script type="text/javascript" src="assets/plugins/modernizr.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
@@ -147,7 +147,7 @@
 											<li><a href="#/admin/sponsors/add">Añadir</a></li>
 											<li><a href="#/admin/sponsors">Editar</a></li>
 										</ul>
-									</li> 
+									</li>
 									<li class="dropdown">
 										<a href="#">Noticias <i class="fa fa-angle-right"></i></a>
 										<ul class="dropdown-menu">
@@ -161,7 +161,7 @@
 											<li><a href="#/admin/activities/add">Añadir</a></li>
 											<li><a href="#/admin/activities">Editar</a></li>
 										</ul>
-									</li>            
+									</li>
 									<li><a href="#/admin/users">Usuarios</a></li>
 									<li class="dropdown">
 										<a href="#">Roles <i class="fa fa-angle-right"></i></a>
@@ -198,9 +198,9 @@
 					</div>
 				  </div>
 				</div>
-				<!-- SPONSORS -->			
-				<slick style="margin-top: 25px;" infinite="true" slides-to-show="4" slides-to-scroll="1" autoplay="true" arrows="false" data="sponsors" init-onload="true" ng-controller="homeCtrl"> <!--    -->
-					<div ng-repeat="sponsor in sponsors"><a href="{{sponsor.url}}"><img class="img-responsive" src="{{sponsor.imageurl}}" height="200" alt="{{sponsor.name}}"></a></div>
+				<!-- SPONSORS -->
+				<slick style="margin-top: 25px;" infinite="true" slides-to-show="4" slides-to-scroll="1" autoplay="true" arrows="false" data="event.sponsors" init-onload="true" ng-controller="homeCtrl"> <!--    -->
+					<div ng-repeat="sponsor in event.sponsors"><a href="{{sponsor.url}}"><img class="img-responsive" src="{{sponsor.imageurl}}" height="200" alt="{{sponsor.name}}"></a></div>
 				</slick>
 			</div>
 		</div>
@@ -220,8 +220,8 @@
 			<!-- /copyright -->
 		</footer>
 		<!-- /FOOTER -->
-		<!-- JAVASCRIPT FILES --> 
-	
+		<!-- JAVASCRIPT FILES -->
+
 		<script type="text/javascript" src="assets/js/angular-locale_es-es.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-cookies.min.js"></script>
@@ -237,15 +237,15 @@
 		<script src="assets/js/clockpicker.js"></script>
 		<script type="text/javascript" src="assets/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
 		<script type="text/javascript" src="assets/plugins/owl-carousel/owl.carousel.min.js"></script>
-		<script type="text/javascript" src="assets/plugins/knob/js/jquery.knob.js"></script>	
-		
+		<script type="text/javascript" src="assets/plugins/knob/js/jquery.knob.js"></script>
+
 		<script type="text/javascript" src="assets/plugins/slick/slick.js"></script>
 		<script type="text/javascript" src="assets/plugins/angular-slick/slick.js"></script>
-		
+
 		<!-- MAXIMAGE SLIDER -->
 		<script type="text/javascript" src="assets/plugins/maximage/js/jquery.cycle.all.min.js"></script>
 		<script type="text/javascript" src="assets/plugins/maximage/js/jquery.maximage.min.js"></script>
-		
+
 		<script type="text/javascript" src="assets/js/moment-with-locales.js"></script>
 
 		<!-- ANGULAR -->
@@ -267,9 +267,9 @@
 		<!--<script src="assets/controllers/showSponsorsCtrl.js"></script>-->
 		<script src="assets/controllers/registerEventCtrl.js"></script>
 		<script src="assets/controllers/editeventCtrl.js"></script>
-		
+
 		<script type="text/javascript" src="assets/js/scripts.js"></script>
-		
+
 
 	</body>
 

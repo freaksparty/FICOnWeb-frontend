@@ -5,7 +5,7 @@
 		$scope.pagination = 10;
 		$scope.news = {};
 		//$scope.sponsors = {};
-		
+
 		$scope.isNext = function () {
 			return $scope.currentPage * $scope.pagination < $scope.size;
 		}
@@ -25,7 +25,7 @@
 				'/api/event/{eventId}/news/published/'+$scope.currentPage+'/'+$scope.pagination,
 				function(data){$scope.news = data;});
 		}
-		
+
 		$scope.getSponsors = function () {
 			if($rootScope.event && $rootScope.event.sponsors) {
 			    $scope.sponsors = $rootScope.event.sponsors
@@ -37,12 +37,12 @@
 				});
 			}
 		}
-		
+
         $scope.ctr = function () {
 		if ($routeParams.page)
 			$scope.currentPage = $routeParams.page;
 			$scope.getNews();
-			$scope.getSponsors();
+			//$scope.getSponsors();
 			$rootScope.getEventData($scope);
 		};
 

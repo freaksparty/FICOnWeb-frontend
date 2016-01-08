@@ -51,8 +51,8 @@
 				$scope.view.event.name = data.name;
 				$scope.view.event.normas = data.rules;
 				$scope.view.event.description = data.description;
-				//$scope.view.event.registrationOpenDate = data.openInscriptionDate;
-				$scope.view.event.registrationOpenDate = null;
+				$scope.view.event.registrationOpenDate = data.openInscriptionDate;
+				//$scope.view.event.registrationOpenDate = null;
 				$scope.update();
 			});
 		} else {

@@ -1,5 +1,5 @@
 (function () {
-    var newsaddCtrl = function ($scope, $rootScope, $http, $cookieStore, $log, $location) {
+    var editorNewsCtrl = function ($scope, $rootScope, $http, $cookieStore, $log, $location, $routeParams) {
         $scope.view = {};
 		$scope.view.news = {};
 		$scope.view.news.image = "";
@@ -14,8 +14,10 @@
 		}
 		
 		$scope.update = function() {
-			var d = new Date();
-			$scope.view.date = d;
+			if(!$scope.view.date) {
+				var d = new Date();
+				$scope.view.date = d;
+			}
 		};
 		
 		$scope.open = function($event) {
@@ -57,12 +59,18 @@
 		}
 
         $scope.ctr = function () {
-			$scope.update();
-		};
+		if($routeParams.id) {
+			$rootScope.getUri(
+				'/api/news/' + $routeParams.id,
+				function (data) {$scope.view.news = data;$scope.view.image=data.imageurl;$scope.view.date=data.publishDate;});
+			$scope.view.publishNow = false;
+		}
+		$scope.update();
+	};
 
         $scope.ctr();
     }
 
-    newsaddCtrl.$inject = ['$scope', '$rootScope', '$http', '$cookieStore', '$log', '$location'];
-    angular.module('FICOnWeb').controller('newsaddCtrl', newsaddCtrl);
+    editorNewsCtrl.$inject = ['$scope', '$rootScope', '$http', '$cookieStore', '$log', '$location', '$routeParams'];
+    angular.module('FICOnWeb').controller('editorNewsCtrl', editorNewsCtrl);
 }());
