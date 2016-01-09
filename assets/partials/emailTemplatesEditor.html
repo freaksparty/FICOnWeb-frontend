@@ -1,0 +1,17 @@
+<div class="row">
+	<div class="col-xs-12">
+		<label>Pendiente de confirmación (Asunto)</label>
+		<input type="text" class="form-control" ng-model="view.templates.subjectPendingConfirmationDirect">
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<label>Pendiente de confirmación (Cuerpo)</label>
+		<div text-angular ng-model="view.templates.contentPendingConfirmationDirect"></div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<button class="btn btn-primary pull-right" ng-click="send(view.event)">Enviar</button>
+	</div>
+</div>

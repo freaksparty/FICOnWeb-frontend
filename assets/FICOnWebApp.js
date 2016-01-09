@@ -69,6 +69,10 @@ FICOnWeb.config(function ($routeProvider) {
 		controller: 'registerEventCtrl',
 		templateUrl: 'assets/partials/registerEvent.html'
 	})
+	.when('/admin/emails', {
+		controller: 'editorEmailTemplatesCtrl',
+		templateUrl: 'assets/partials/emailTemplatesEditor.html'
+	})
         .otherwise({
             redirectTo: '/home'
         });
@@ -83,8 +87,8 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.event = {};
     
 	$rootScope.config = {};
-	$rootScope.config.apiUrl = 'http://dev.ficonlan.es:8080';
-	$rootScope.config.eventId = 3;
+	$rootScope.config.apiUrl = 'http://localhost:8080';
+	$rootScope.config.eventId = 1;
 	
 	var $eventId = $location.search().eventId;
 	if($eventId) {
@@ -128,7 +132,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	
 	$rootScope.createSession = function() {
 		this.getUri('/api/session', function(data, status, headers, config)
-			{$cookieStore.put('FICOnCookie', data);});
+		{$cookieStore.put('FICOnCookie', data);});
 	};
     
 	$rootScope.createAndMove = function() {
