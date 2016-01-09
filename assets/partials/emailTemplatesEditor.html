@@ -1,17 +1,85 @@
 <div class="row">
 	<div class="col-xs-12">
-		<label>Pendiente de confirmación (Asunto)</label>
+		<label>Plaza conseguida (Asunto)</label>
+		<input type="text" class="form-control" ng-model="view.templates.subjectSpotConfirmed">
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<label>Plaza conseguida (Cuerpo)</label>
+		<div text-angular ng-model="view.templates.contentSpotConfirmed"></div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<button id="btnSaveConfirmed" class="btn btn-primary pull-right" ng-click="send('confirmed')">Guardar (confirmado)</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<label>Pendiente de confirmaci&oacute;n (Asunto)</label>
 		<input type="text" class="form-control" ng-model="view.templates.subjectPendingConfirmationDirect">
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-12">
-		<label>Pendiente de confirmación (Cuerpo)</label>
+		<label>Pendiente de confirmaci&oacute;n (Cuerpo)</label>
 		<div text-angular ng-model="view.templates.contentPendingConfirmationDirect"></div>
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-12">
-		<button class="btn btn-primary pull-right" ng-click="send(view.event)">Enviar</button>
+		<button id="btnSavePending" class="btn btn-primary pull-right" ng-click="send('pendingDirect')">Guardar (pendiente)</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<label>En cola de espera (Asunto)</label>
+		<input type="text" class="form-control" ng-model="view.templates.subjectOnQueue">
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<label>En cola de espera (Cuerpo)</label>
+		<div text-angular ng-model="view.templates.contentOnQueue"></div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<button id="btnSaveQueue" class="btn btn-primary pull-right" ng-click="send('queue')">Guardar (cola)</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<label>De cola a pendiente (Asunto)</label>
+		<input type="text" class="form-control" ng-model="view.templates.subjectPendingConfirmationFromQueue">
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<label>De cola a pendiente (Cuerpo)</label>
+		<div text-angular ng-model="view.templates.contentPendingConfirmationFromQueue"></div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<button id="btnSaveQueueToPending" class="btn btn-primary pull-right" ng-click="send('pendingFromQueue')">Guardar (pendiente desde cola)</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<label>Plazo de confirmaci&oacute;n expirado (Asunto)</label>
+		<input type="text" class="form-control" ng-model="view.templates.subjectConfirmationPeriodExpired">
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<label>Plazo de confirmaci&oacute;n expirado (Cuerpo)</label>
+		<div text-angular ng-model="view.templates.contentConfirmationPeriodExpired"></div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<button id="btnSaveExpired" class="btn btn-primary pull-right" ng-click="send('expired')">Guardar (reserva perdida)</button>
 	</div>
 </div>

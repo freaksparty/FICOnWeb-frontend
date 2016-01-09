@@ -1,25 +1,41 @@
 (function () {
-    var editorEmailTemplatesCtrl = function ($scope, $rootScope, $http, $cookieStore, $log, $location) {
+    var editorEmailTemplatesCtrl = function ($scope, $rootScope, $log) {
         $scope.view = {};
 	$scope.view.templates = {};
 		
-// 		$scope.save = function (templates) {
-// 			$rootScope.postUri(
-// 			if ($cookieStore.get('FICOnCookie')) {
-// 				$http({
-// 					url: $rootScope.config.apiUrl + '/api/event/news/' + $rootScope.config.eventId,
-// 					method: "POST",
-// 					data: { "title" : news.title, "imageurl" : news.image, "content" : news.content, "priorityHours" : 0, "publishDate": news.date },
-// 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
-// 				}).success(function (data, status, headers, config) {
-// 					$location.path("/home");
-// 				}).error(function (data, status, headers, config) {
-// 					console.log('noticia  no creada');
-// 				});
-// 			} else {
-// 				console.log('error');
-// 			}
-// 		}
+	$scope.send = function (template) {
+		var object = {};
+		var idTemplate;
+		switch(template) {
+			case 'confirmed':
+				object.asunto = $scope.view.templates.subjectSpotConfirmed;
+				object.contenido = $scope.view.templates.contentSpotConfirmed;
+				idTemplate = $scope.view.templates.idSpotConfirmed;
+				break;
+			case 'pendingDirect':
+				object.asunto = $scope.view.templates.subjectPendingConfirmationDirect;
+				object.contenido = $scope.view.templates.contentPendingConfirmationDirect;
+				idTemplate = $scope.view.templates.idPendingConfirmationDirect;
+				break;
+			case 'queue':
+				object.asunto = $scope.view.templates.subjectOnQueue;
+				object.contenido = $scope.view.templates.contentOnQueue;
+				idTemplate = $scope.view.templates.idOnQueue;
+				break;
+			case 'pendingFromQueue':
+				object.asunto = $scope.view.templates.subjectPendingConfirmationFromQueue;
+				object.contenido = $scope.view.templates.contentPendingConfirmationFromQueue;
+				idTemplate = $scope.view.templates.idPendingConfirmationFromQueue;
+				break;
+			case 'expired':
+				object.asunto = $scope.view.templates.subjectConfirmationPeriodExpired;
+				object.contenido = $scope.view.templates.contentConfirmationPeriodExpired;
+				idTemplate = $scope.view.templates.idConfirmationPeriodExpired;
+				break;
+		}
+		$rootScope.postUri('/api/emailTemplate/'+idTemplate, object,
+				function (data) {/*TODO*/}, undefined, 'PUT');
+	}
 
         $scope.ctr = function () {
 		$rootScope.getUri(
@@ -30,6 +46,6 @@
         $scope.ctr();
     }
 
-    editorEmailTemplatesCtrl.$inject = ['$scope', '$rootScope', '$http', '$cookieStore', '$log', '$location'];
+    editorEmailTemplatesCtrl.$inject = ['$scope', '$rootScope', '$log'];
     angular.module('FICOnWeb').controller('editorEmailTemplatesCtrl', editorEmailTemplatesCtrl);
 }());

@@ -87,8 +87,8 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.event = {};
     
 	$rootScope.config = {};
-	$rootScope.config.apiUrl = 'http://localhost:8080';
-	$rootScope.config.eventId = 1;
+	$rootScope.config.apiUrl = 'http://dev.freaksparty.org:8080';
+	$rootScope.config.eventId = 3;
 	
 	var $eventId = $location.search().eventId;
 	if($eventId) {
