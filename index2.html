@@ -200,7 +200,7 @@
 				  </div>
 				</div>
 				<!-- SPONSORS -->
-				<slick style="margin-top: 25px;" infinite="true" slides-to-show="4" slides-to-scroll="1" autoplay="true" arrows="false" data="event.sponsors" init-onload="true" ng-controller="homeCtrl"> <!--    -->
+				<slick ng-cloak style="margin-top: 25px;" infinite="true" slides-to-show="4" slides-to-scroll="1" autoplay="true" arrows="false" data="event.sponsors" init-onload="true" ng-controller="homeCtrl"> <!--    -->
 					<div ng-repeat="sponsor in event.sponsors"><a href="{{sponsor.url}}"><img class="img-responsive" src="{{sponsor.imageurl}}" height="200" alt="{{sponsor.name}}"></a></div>
 				</slick>
 			</div>
@@ -257,8 +257,9 @@
 		<script src="assets/controllers/registerCtrl.js"></script>
 		<script src="assets/controllers/profileCtrl.js"></script>
 		<script src="assets/controllers/adminNewsCtrl.js"></script>
-		<script src="assets/controllers/editorNewsCtrl.js"></script>
-		<script src="assets/controllers/editorEmailTemplatesCtrl.js"></script>
+		<script src="assets/controllers/editNewsCtrl.js"></script>
+		<script src="assets/controllers/editEventCtrl.js"></script>
+		<script src="assets/controllers/editEmailTemplatesCtrl.js"></script>
 		<script src="assets/controllers/showActivityCtrl.js"></script>
 		<script src="assets/controllers/activityCtrl.js"></script>
 		<script src="assets/controllers/activityaddCtrl.js"></script>
@@ -268,7 +269,6 @@
 		<script src="assets/controllers/sponsorCtrl.js"></script>
 		<!--<script src="assets/controllers/showSponsorsCtrl.js"></script>-->
 		<script src="assets/controllers/registerEventCtrl.js"></script>
-		<script src="assets/controllers/editeventCtrl.js"></script>
 
 		<script type="text/javascript" src="assets/js/scripts.js"></script>
 
