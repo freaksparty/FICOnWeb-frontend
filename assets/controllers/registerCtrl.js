@@ -56,32 +56,21 @@
 		};
 		
 		$scope.register = function (login, pass, pass2, email, name, dni, phone, shirtSize, dob) {
-			$scope.view.registerSend = false;
-			$scope.errors.register = false;
-			$scope.errors.registerCode = "";	
-			if ($cookieStore.get('FICOnCookie')) {
-				$http({
-					url: $rootScope.config.apiUrl + '/api/user',
-					method: "POST",
-					data: { "name" : name, "login" : login, "password" : pass, "dni" : dni, "email" : email, "phoneNumber" : phone, "shirtSize" : shirtSize, "dob" : $filter('date')($scope.view.dob, 'dd-MM-yyyy/12:00:00') },
-					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
-				}).success(function (data, status, headers, config) {
-					$scope.view.registerSend = true;
-				}).error(function (data, status, headers, config) {
+		$scope.view.registerSend = false;
+		$scope.errors.register = false;
+		$scope.errors.registerCode = "";
+		$rootScope.postUri('/api/user', 
+				{ "name" : name, "login" : login, "password" : pass, "dni" : dni, "email" : email, "phoneNumber" : phone, "shirtSize" : shirtSize, "dob" : $filter('date')($scope.view.dob, 'dd-MM-yyyy/12:00:00') },
+				function (data, status, headers, config) { $scope.view.registerSend = true; },
+				function (data, status, headers, config) {
 					$scope.errors.register = true;
 					$scope.errors.registerCode = data.exceptionCode;
 					$scope.view.duplicateField = data.field;
 					$rootScope.createSession();
 				});
-			} else {
-				$scope.errors.register = true;
-				$scope.errors.registerCode = "1";
-				$rootScope.createSession();
-			}
         }
 		        
-        $scope.ctr = function () {
-        };
+        $scope.ctr = function () {};
 		
         $scope.ctr();
     }

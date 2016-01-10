@@ -86,11 +86,11 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.vars.roles = [];
 	$rootScope.showEvent = {};
 	$rootScope.event = {};
-    
-	$rootScope.config = {};
-	$rootScope.config.apiUrl = 'http://localhost:8080';
-	$rootScope.config.eventId = 1;
-	
+
+	$rootScope.config = eventConfig || {};
+	/*$rootScope.config.apiUrl = 'http://dev.ficonlan.es:8080';
+	$rootScope.config.eventId = 3;*/
+
 	var $eventId = $location.search().eventId;
 	if($eventId) {
 	    $rootScope.config.eventId = $eventId;
@@ -99,7 +99,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	if($cookieStore.get('FICOnEventId')) {
 	    $rootScope.config.eventId = $cookieStore.get('FICOnEventId');
 	}
-	
+
 	$rootScope.stateFilter = function (state) {
 		switch (state) {
 			case 'paid':
@@ -112,7 +112,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 				return 'error';
 		}
 	}
-	
+
 	$rootScope.isNumber = function (number) {
 		if (isNaN(number)) {
 			return false;
@@ -120,7 +120,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 			return true;
 		}
 	};
-	
+
 	$rootScope.validatePassword = function (pass, pass2) {
 		if ((pass != "") && (pass2 != "")) {
 			if (pass == pass2) {
@@ -130,7 +130,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 			}
 		} else return false;
 	}
-    
+
 // 	$rootScope.createAndMove = function() {
 // 		$http.get($rootScope.config.apiUrl + '/api/session')
 // 		.success(function(data, status, headers, config) {
@@ -142,7 +142,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 // 			console.log('error al crear sesion');
 // 		});
 // 	};
-	
+
 // 	$rootScope.isValidSession = function() {
 //         $http({
 //             url: $rootScope.config.apiUrl + '/api/session/isvalid',
@@ -156,36 +156,38 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 // 			$rootScope.createAndMove();
 // 		});
 // 	};
-	
-	$rootScope.redirectToLogin = function() {$location.path('/login');}
-	
+
+	$rootScope.redirectToLogin = function() {$cookieStore.remove('FICOnCookie');$location.path('/login');}
+
 	$rootScope.pageRequiresLogin = function() {
 		if($cookieStore.get('FICOnCookie')) {
-			$rootScope.getUriErrHandler('/api/session/isvalid', function(data){
-				if(data!=true)$rootScope.redirectToLogin();
+			$rootScope.getUri('/api/session/isvalid', function(data){
+				if(data!='true')$rootScope.redirectToLogin();
 			},$rootScope.redirectToLogin);
 		} else {
 			$rootScope.redirectToLogin();
 		}
 	}
-	
+
 	$rootScope.createSession = function() {
 		this.getUri('/api/session', function(data, status, headers, config)
 		{$cookieStore.put('FICOnCookie', data);});
 	};
-	
+
 	$rootScope.pageRequiresSession = function() {
 		if(!$cookieStore.get('FICOnCookie')) {
 			$rootScope.createSession();
 		}
 	}
-	
+
 	$rootScope.checkRoles = function(roles) {
 		roles.forEach(function(rol) {
 			$rootScope.vars.roles.push(rol.roleName);
 		});
-	}	
+	}
 	
+	$rootScope.getIsLogged = function() {return $cookieStore.get('FICOnCookie') && $cookieStore.get('FICOnCookie').userId > 0;}
+
 	$rootScope.isLogged = function() {
 		if ($cookieStore.get('FICOnCookie') && $cookieStore.get('FICOnCookie').userId > 0) {
 			$rootScope.vars.logged = true;
@@ -207,7 +209,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 			default:
 				return 'error';
 		}
-	};	
+	};
 	$rootScope.showButton = function () {
 		if ($cookieStore.get('FICOnCookie')) {
 			if ($cookieStore.get('FICOnCookie').userId > 0) {
@@ -225,7 +227,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 			console.log('Error showButton, no cookie.');
 		}
 	}
-	
+
 	$rootScope.registerOnEvent = function () {
 		if ($cookieStore.get('FICOnCookie')) {
 			$http({
@@ -241,7 +243,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 			console.log('Error registerOnEvent(), no cookie.');
 		}
 	}
-	
+
 	//función para comprobar la validez de las cookies en cada carga de página
 // 	$rootScope.$on('$routeChangeSuccess', function () {
 // 		$rootScope.showButton();
@@ -256,23 +258,26 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.$on('$routeChangeSuccess', function () {
 		$rootScope.isLogged();
 	});
-	
+
 	$rootScope.getSessionId = function () {
 	    if(typeof $cookieStore.get('FICOnCookie') === 'undefined')
 		return null;
 	    else
 		return $cookieStore.get('FICOnCookie').sessionId
 	}
-	
-	//Peticiones compartidas entre varias páginas	
+
+	//Peticiones compartidas entre varias páginas
 	$rootScope.getEventData = function ($scope) {
 		this.getUri('/api/event/{eventId}', function (data) {$rootScope.event=$scope.event=data;});
 	}
-	
+
 	$rootScope.getUri = function(uri, callback, errorhandler) {
 		if(typeof errorhandler !== 'function') {
 			errorhandler = function (data, status, headers, config) {
 				console.log('Error rootScope.getUri('+uri+') ['+status+']: '+data);
+				if(data.exceptionCode && data.exceptionCode == 1) {
+					$cookieStore.remove('FICOnCookie');
+				}
 			}
 		}
 		uri = $rootScope.config.apiUrl + uri.replace("{eventId}", $rootScope.config.eventId);
@@ -283,14 +288,17 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 			headers: { "sessionId" :  $rootScope.getSessionId() }
 		}).success(callback).error(errorhandler);
 	}
-	
+
 	$rootScope.postUri = function(uri, data, callback, errorhandler, verb) {
 		if(typeof verb === 'undefined') verb = 'POST';
 		if(typeof errorhandler === 'undefined') errorhandler = function(data, status) {
 			console.log('Error rootScope.postUri('+uri+') '+verb+' ['+status+']: '+data);
+			if(data.exceptionCode && data.exceptionCode == 1) {
+				$cookieStore.remove('FICOnCookie');
+			}
 		};
 		uri = $rootScope.config.apiUrl + uri.replace("{eventId}", $rootScope.config.eventId);
 		$http({url: uri,method:verb,data: data,headers:{"sessionId":$rootScope.getSessionId()}}).success(callback).error(errorhandler);
 	}
-	
+
 }]);
