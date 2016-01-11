@@ -128,13 +128,13 @@
 									</li>
 								</ul>
 							</li>
-							<li class="dropdown" ng-show="(vars.roles.indexOf('Admin') != -1)" ng-cloak>
+							<li class="dropdown" ng-show="showAdmin()" ng-cloak>
 								<a class="dropdown-toggle" href="#">Administración<i class="fa fa-angle-down"></i></a>
 								<ul class="dropdown-menu">
 									<li><label>Id evento: {{config.eventId}}</label></li>
-									<li><a href="#/admin/event/{{config.eventId}}">Modificar evento</a></li>
-									<li><a href="#/admin/emails">Modificar emails</a></li>
-									<li><a href="#/admin/registerEvent">Registros</a></li>
+									<li><a href="#/admin/event/{{config.eventId}}" ng-show="checkRole('EventController')">Modificar evento</a></li>
+									<li><a href="#/admin/emails" ng-show="checkRole('EventController')">Modificar emails</a></li>
+									<li><a href="#/admin/registerEvent" ng-show="checkRole('EventController') || checkRole('RegistrationController')">Registros</a></li>
 									<!--<li class="dropdown">
 										<a href="#">Eventos <i class="fa fa-angle-right"></i></a>
 										<ul class="dropdown-menu">
@@ -142,28 +142,28 @@
 											<li><a href="#">Añadir</a></li>
 										</ul>
 									</li>-->
-									<li class="dropdown">
+									<li class="dropdown"  ng-show="checkRole('SponsorController')">
 										<a href="#">Sponsors <i class="fa fa-angle-right"></i></a>
 										<ul class="dropdown-menu">
 											<li><a href="#/admin/sponsors/add">Añadir</a></li>
 											<li><a href="#/admin/sponsors">Editar</a></li>
 										</ul>
 									</li>
-									<li class="dropdown">
+									<li class="dropdown" ng-show="checkRole('NewsController')">
 										<a href="#">Noticias <i class="fa fa-angle-right"></i></a>
 										<ul class="dropdown-menu">
 											<li><a href="#/admin/news/add">Añadir</a></li>
 											<li><a href="#/admin/news">Gestionar</a></li>
 										</ul>
 									</li>
-									<li class="dropdown">
+									<li class="dropdown" ng-show="checkRole('ActivityController')">
 										<a href="#">Actividades <i class="fa fa-angle-right"></i></a>
 										<ul class="dropdown-menu">
 											<li><a href="#/admin/activities/add">Añadir</a></li>
 											<li><a href="#/admin/activities">Editar</a></li>
 										</ul>
 									</li>
-									<li><a href="#/admin/users">Usuarios</a></li>
+									<li><a href="#/admin/users" ng-show="checkRole('Admin')">Usuarios</a></li>
 									<li class="dropdown">
 										<a href="#">Roles <i class="fa fa-angle-right"></i></a>
 										<ul class="dropdown-menu">
