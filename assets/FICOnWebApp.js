@@ -174,11 +174,11 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 		{$cookieStore.put('FICOnCookie', data);});
 	};
 
-	$rootScope.pageRequiresSession = function() {
-		if(!$cookieStore.get('FICOnCookie')) {
-			$rootScope.createSession();
-		}
-	}
+// 	$rootScope.pageRequiresSession = function() {
+// 		if(!$cookieStore.get('FICOnCookie')) {
+// 			$rootScope.createSession();
+// 		}
+// 	}
 
 	$rootScope.checkRoles = function(roles) {
 		roles.forEach(function(rol) {
@@ -188,16 +188,6 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	
 	$rootScope.getIsLogged = function() {return $cookieStore.get('FICOnCookie') && $cookieStore.get('FICOnCookie').userId > 0;}
 
-	$rootScope.isLogged = function() {
-		if ($cookieStore.get('FICOnCookie') && $cookieStore.get('FICOnCookie').userId > 0) {
-			$rootScope.vars.logged = true;
-			$rootScope.vars.userName = $cookieStore.get('FICOnCookie').loginName;
-			$rootScope.checkRoles($cookieStore.get('FICOnCookie').roles);
-		} else {
-			$rootScope.vars.logged = false;
-			$rootScope.vars.userName = "";
-		}
-	}
 	$rootScope.colorState = function (state) {
 		switch (state) {
 			case 'paid':
@@ -244,7 +234,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 		}
 	}
 
-	//función para comprobar la validez de las cookies en cada carga de página
+// 	// función para comprobar la validez de las cookies en cada carga de página
 // 	$rootScope.$on('$routeChangeSuccess', function () {
 // 		$rootScope.showButton();
 // 		if ($cookieStore.get('FICOnCookie')) {
@@ -256,8 +246,33 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 // 	});
 
 	$rootScope.$on('$routeChangeSuccess', function () {
-		$rootScope.isLogged();
+		function afterCheck() {
+			$rootScope.isLogged();
+			$rootScope.showButton();
+		}
+		function clearSession() {
+			$cookieStore.remove('FICOnCookie');
+			afterCheck();			
+		}
+		if(typeof $cookieStore.get('FICOnCookie') !== 'undefined') {
+			$rootScope.getUri('/api/session/isvalid', function(data){
+				if(data!='true') clearSession();
+				else afterCheck();
+			},clearSession,false);
+		}
+		
 	});
+	
+	$rootScope.isLogged = function() {
+		if ($cookieStore.get('FICOnCookie') && $cookieStore.get('FICOnCookie').userId > 0) {
+			$rootScope.vars.logged = true;
+			$rootScope.vars.userName = $cookieStore.get('FICOnCookie').loginName;
+			$rootScope.checkRoles($cookieStore.get('FICOnCookie').roles);
+		} else {
+			$rootScope.vars.logged = false;
+			$rootScope.vars.userName = "";
+		}
+	}
 
 	$rootScope.getSessionId = function () {
 	    if(typeof $cookieStore.get('FICOnCookie') === 'undefined')
@@ -271,7 +286,7 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 		this.getUri('/api/event/{eventId}', function (data) {$rootScope.event=$scope.event=data;});
 	}
 
-	$rootScope.getUri = function(uri, callback, errorhandler) {
+	$rootScope.getUri = function(uri, callback, errorhandler, useCache) {
 		if(typeof errorhandler !== 'function') {
 			errorhandler = function (data, status, headers, config) {
 				console.log('Error rootScope.getUri('+uri+') ['+status+']: '+data);
@@ -280,11 +295,12 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 				}
 			}
 		}
+		if(typeof useCache === 'undefined') useCache = true;
 		uri = $rootScope.config.apiUrl + uri.replace("{eventId}", $rootScope.config.eventId);
 		$http({
 			url: uri,
 			method: "GET",
-			cache: true,
+			cache: useCache,
 			headers: { "sessionId" :  $rootScope.getSessionId() }
 		}).success(callback).error(errorhandler);
 	}
