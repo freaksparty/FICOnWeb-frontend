@@ -1,27 +1,261 @@
 <!DOCTYPE html>
-<html>
+<!--[if IE 8]><html class="ie ie8"> <![endif]-->
+<!--[if IE 9]><html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html ng-app="FICOnWeb">
+<!--<![endif]-->
+	<head>
+		<meta charset="utf-8" />
+		<title>FIC OnLan VI</title>
+		<meta name="keywords" content="" />
+		<meta name="description" content="FIC OnLan Web">
+		<meta name="author" content="Freaks Party">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="FICOnLan Web">
-    <meta name="author" content="Freaks Party">
-    <title>FICOnLan VI</title>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
-</head>
+		<!-- mobile settings -->
+		<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
 
-<body>
-    <div class="bg-image"></div>
-    <div class="bg-dots"></div>
-    <img src="img/minilogo.png" class="logo-place">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script>
-        angular.bootstrap(document, ['FICONLAN']);
-    </script>
-</body>
+		<!-- FAVICON -->
+		<link rel="icon" type="image/png" href="assets/images/favicon.png" />
+
+		<!-- WEB FONTS -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet" type="text/css" />
+
+		<!-- CORE CSS -->
+		<link rel="stylesheet" href="assets/css/clockpicker.css">
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		<link href="assets/css/font-awesome.css" rel="stylesheet" type="text/css" />
+		<link href="assets/plugins/owl-carousel/owl.carousel.css" rel="stylesheet" type="text/css" />
+		<link href="assets/plugins/owl-carousel/owl.theme.css" rel="stylesheet" type="text/css" />
+		<link href="assets/plugins/owl-carousel/owl.transitions.css" rel="stylesheet" type="text/css" />
+		<link href="assets/plugins/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="assets/plugins/slick/slick.css" type="text/css" />
+
+		<!-- THEME CSS -->
+		<link href="assets/css/essentials.css" rel="stylesheet" type="text/css" />
+		<link href="assets/css/layout.css" rel="stylesheet" type="text/css" />
+		<link href="assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" />
+
+		<!-- Modernizr -->
+		<script type="text/javascript" src="assets/plugins/modernizr.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	</head>
+
+	<body>
+		<!-- TOP BAR -->
+		<div id="topBar" ng-cloak>
+			<div class="container">
+				<div class="btn-group pull-right" ng-controller="menuCtrl">
+					<button class="dropdown-toggle language" type="button" data-toggle="dropdown">
+						<span ng-hide="vars.logged">Entrar <span class="caret"></span></span>
+						<span ng-show="vars.logged">Bienvenido {{vars.userName}} <span class="caret"></span></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li ng-hide="vars.logged">
+							<a href="#/login"><i class="fa fa-user"></i> Login</a>
+						</li>
+						<li ng-hide="vars.logged">
+							<a href="#/register"><i class="fa fa-key"></i> Registro</a>
+						</li>
+						<li ng-show="vars.logged">
+							<a href="#/profile"><i class="fa fa-cogs"></i> Perfil</a>
+						</li>
+						<li ng-show="vars.logged">
+							<a href="" ng-click="logout()"><i class="fa fa-power-off"></i> Salir</a>
+						</li>
+					</ul>
+				</div>
+				<button ng-show="!vars.logged" class="btn btn-success btn-xs pull-right" type="button" style="margin-top: 3px; margin-right: 10px;" ng-disabled="true">Regístrate para inscribirte</button>
+				<button ng-show="vars.logged" class="btn btn-success btn-xs pull-right" type="button" style="margin-top: 3px; margin-right: 10px;" ng-disabled="!showEvent.open || !vars.logged || showEvent.state != null" ng-click="registerOnEvent()";"><span ng-show="showEvent.state !== null && showEvent.open"><i class="fa fa-circle" style="color: {{colorState(showEvent.state)}}"></i>Estado: {{stateFilter(showEvent.state)}} / Plaza: {{showEvent.place}}</span><span ng-show="showEvent.state === null && showEvent.open">¡Consigue tu plaza!</span><span ng-show="!showEvent.open">Registros cerrados</span></button>
+			</div>
+		</div>
+		<!-- /TOP BAR -->
+		<!-- HEADER -->
+		<header id="header">
+			<div class="container">
+				<!-- LOGO -->
+				<a href="#/home" class="logo">
+					<img alt="" src="assets/images/logo.png" height="60" />
+				</a>
+				<!-- LOGO -->
+				<!-- OPTIONS -->
+				<ul id="topOptions">
+					<li>
+						<!-- Mobile Menu Button -->
+						<button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+							<i class="fa fa-bars"></i>
+						</button>
+					</li>
+				</ul>
+				<!-- /OPTIONS -->
+				<!-- TOP MENU -->
+				<div class="navbar-collapse nav-main-collapse collapse pull-left" ng-controller="menuCtrl">
+					<nav class="nav-main">
+						<ul class="nav nav-pills nav-main scroll-menu" id="topMain">
+							<li class="active">
+								<a href="#/home">Inicio</a>
+							</li>
+							<li>
+								<a href="http://foro.ficonlan.es">Foro</a>
+							</li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" href="#">Información<i class="fa fa-angle-down"></i></a>
+								<ul class="dropdown-menu">
+									<li><a href="http://www.fic.udc.es/HarvestExternalData.do?operation=faculty.howtoarrive">Como llegar</a></li>
+									<li><a href="#/rules">Normas</a></li>
+									<li><a href="mailto:contacto@freaksparty.org">Contacto</a></li>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" href="#">Actividades<i class="fa fa-angle-down"></i></a>
+								<ul class="dropdown-menu">
+									<li class="dropdown">
+										<a href="#">Torneos <i class="fa fa-angle-right"></i></a>
+										<ul class="dropdown-menu">
+											<li ng-repeat="t in event.tournaments"><a href="#/activity/tournament/{{t.activityId}}">{{t.name}}</a></li>
+										</ul>
+									</li>
+									<li class="dropdown">
+										<a href="#">Producciones <i class="fa fa-angle-right"></i></a>
+										<ul class="dropdown-menu">
+											<li ng-repeat="p in event.productions"><a href="#/activity/production/{{p.activityId}}">{{p.name}}</a></li>
+										</ul>
+									</li>
+									<li class="dropdown">
+										<a href="#">Conferencias <i class="fa fa-angle-right"></i></a>
+										<ul class="dropdown-menu">
+											<li ng-repeat="c in event.conferences"><a href="#/activity/conference/{{c.activityId}}">{{c.name}}</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li class="dropdown" ng-show="showAdmin()" ng-cloak>
+								<a class="dropdown-toggle" href="#">Administración<i class="fa fa-angle-down"></i></a>
+								<ul class="dropdown-menu">
+									<li><label>Id evento: {{config.eventId}}</label></li>
+									<li><a href="#/admin/event/{{config.eventId}}" ng-show="checkRole('EventController')">Modificar evento</a></li>
+									<li><a href="#/admin/emails" ng-show="checkRole('EventController')">Modificar emails</a></li>
+									<li><a href="#/admin/registerEvent" ng-show="checkRole('EventController') || checkRole('RegistrationController')">Registros</a></li>
+									<!--<li class="dropdown">
+										<a href="#">Eventos <i class="fa fa-angle-right"></i></a>
+										<ul class="dropdown-menu">
+											<li><a href="#">Gestionar</a></li>
+											<li><a href="#">Añadir</a></li>
+										</ul>
+									</li>-->
+									<li class="dropdown"  ng-show="checkRole('SponsorController')">
+										<a href="#">Sponsors <i class="fa fa-angle-right"></i></a>
+										<ul class="dropdown-menu">
+											<li><a href="#/admin/sponsors/add">Añadir</a></li>
+											<li><a href="#/admin/sponsors">Editar</a></li>
+										</ul>
+									</li>
+									<li class="dropdown" ng-show="checkRole('NewsController')">
+										<a href="#">Noticias <i class="fa fa-angle-right"></i></a>
+										<ul class="dropdown-menu">
+											<li><a href="#/admin/news/add">Añadir</a></li>
+											<li><a href="#/admin/news">Gestionar</a></li>
+										</ul>
+									</li>
+									<li class="dropdown" ng-show="checkRole('ActivityController')">
+										<a href="#">Actividades <i class="fa fa-angle-right"></i></a>
+										<ul class="dropdown-menu">
+											<li><a href="#/admin/activities/add">Añadir</a></li>
+											<li><a href="#/admin/activities">Editar</a></li>
+										</ul>
+									</li>
+									<li><a href="#/admin/users" ng-show="checkRole('Admin')">Usuarios</a></li>
+									<li class="dropdown">
+										<a href="#">Roles <i class="fa fa-angle-right"></i></a>
+										<ul class="dropdown-menu">
+											<li><a href="#">Gestionar</a></li>
+										</ul>
+									</li>
+									<!--<li><a href="#">Blacklist</a></li>-->
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</div>
+				<!-- /TOP MENU -->
+			</div>
+		</header>
+		<!-- /HEADER -->
+		<div id="middle" class="container">
+			<div class="white clearfix">
+				<div ng-view></div>
+				<div class="modal fade" id="modalYoung" tabindex="-1" role="dialog" aria-hidden="true">
+				  <div class="modal-dialog">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="myModalLabel">Edad insuficiente</h4>
+					  </div>
+					  <div class="modal-body">
+						Lo sentimos pero eres demasiado jóven para participar en este evento.
+					  </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<!-- SPONSORS -->
+				<slick ng-cloak style="margin-top: 25px;" infinite="true" slides-to-show="4" slides-to-scroll="1" autoplay="true" arrows="false" data="event.sponsors" init-onload="true" ng-controller="homeCtrl"> <!--    -->
+					<div ng-repeat="sponsor in event.sponsors"><a href="{{sponsor.url}}"><img class="img-responsive" src="{{sponsor.imageurl}}" height="200" alt="{{sponsor.name}}"></a></div>
+				</slick>
+			</div>
+		</div>
+		<!-- FOOTER -->
+		<footer id="footer">
+			<!-- right menu -->
+			<ul>
+				<li><a href="mailto:contacto@freaksparty.org">CONTACTO</a></li>
+				<li class="sepy">&bull;</li>
+				<li><a href="https://www.facebook.com/ficonlan.es" target="_blank"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="https://twitter.com/Fic_OnLan" target="_blank"><i class="fa fa-twitter"></i></a></li>
+				<li><a href="https://www.youtube.com/user/MrFICOnLan" target="_blank"><i class="fa fa-youtube"></i></a></li>
+			</ul>
+			<!-- /right menu -->
+			<!-- copyright -->
+			<span class="hidden-xs">&copy; FREAK'S PARTY</span>
+			<!-- /copyright -->
+		</footer>
+		<!-- /FOOTER -->
+		<!-- JAVASCRIPT FILES -->
+		<script type="text/javascript" src="assets/js/config.js"></script>
+		<script type="text/javascript" src="assets/js/angular-locale_es-es.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-cookies.min.js"></script>
+		<script type="text/javascript" src="assets/js/ui-bootstrap-tpls-0.11.2.min.js"></script>
+		<script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.2/textAngular-sanitize.min.js'></script>
+		<script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.2/textAngular.min.js'></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="assets/plugins/jquery.easing.1.3.js"></script>
+		<script type="text/javascript" src="assets/plugins/jquery.appear.js"></script>
+		<script type="text/javascript" src="assets/plugins/jquery.isotope.js"></script>
+		<script type="text/javascript" src="assets/plugins/jquery.nicescroll.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/clockpicker.js"></script>
+		<script type="text/javascript" src="assets/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+		<script type="text/javascript" src="assets/plugins/owl-carousel/owl.carousel.min.js"></script>
+		<script type="text/javascript" src="assets/plugins/knob/js/jquery.knob.js"></script>
+
+		<script type="text/javascript" src="assets/plugins/slick/slick.js"></script>
+		<script type="text/javascript" src="assets/plugins/angular-slick/slick.js"></script>
+
+		<!-- MAXIMAGE SLIDER -->
+		<script type="text/javascript" src="assets/plugins/maximage/js/jquery.cycle.all.min.js"></script>
+		<script type="text/javascript" src="assets/plugins/maximage/js/jquery.maximage.min.js"></script>
+
+		<script type="text/javascript" src="assets/js/moment-with-locales.js"></script>
+
+		<!-- ANGULAR -->
+		<script src="assets/FICOnWebApp.js"></script>
+		<script src="assets/controllers.min.js"></script>
+
+		<script type="text/javascript" src="assets/js/scripts.js"></script>
+
+
+	</body>
 
 </html>
