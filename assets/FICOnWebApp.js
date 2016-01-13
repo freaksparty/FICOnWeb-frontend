@@ -225,7 +225,9 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 				method: "POST",
 				headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 			}).success(function (data, status, headers, config) {
-				$window.location.reload();
+				$rootScope.showEvent = data;
+				//setTimeout(function() { $rootScope.showButton(); }, 500);
+				//$window.location.reload();
 			}).error(function (data, status, headers, config) {
 				if (data.exceptionCode == 14) $('#modalYoung').modal('toggle');
 			});
