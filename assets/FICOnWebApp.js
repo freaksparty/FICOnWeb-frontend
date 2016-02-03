@@ -90,6 +90,8 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.config = eventConfig || {};
 	/*$rootScope.config.apiUrl = 'http://dev.ficonlan.es:8080';
 	$rootScope.config.eventId = 3;*/
+	
+	$rootScope.countdownhandler = null;
 
 	var $eventId = $location.search().eventId;
 	if($eventId) {
@@ -209,6 +211,9 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
 				}).success(function (data, status, headers, config) {
 					$rootScope.showEvent = data;
+					if(data.open == false) {
+						$rootScope.finalCountdown();
+					}
 				}).error(function (data, status, headers, config) {
 					console.log('error get');
 				});
@@ -234,6 +239,23 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 		} else {
 			console.log('Error registerOnEvent(), no cookie.');
 		}
+	}
+	
+	$rootScope.finalCountdown = function() {
+		this.getUri('/api/event/{eventId}/timeToOpen', function (data) {
+			if (data >= 0) {
+				if(data == 0) {
+					data = 500;
+				} else {
+					data *= 1000;
+					data += 100;
+				}
+				if($rootScope.countdownhandler != null) {
+					clearTimeout($rootScope.countdownhandler);
+				}
+				$rootScope.countdownhandler = setTimeout($rootScope.showButton, data);
+			}
+		}, undefined, false);
 	}
 
 // 	// función para comprobar la validez de las cookies en cada carga de página
@@ -285,7 +307,9 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 
 	//Peticiones compartidas entre varias páginas
 	$rootScope.getEventData = function ($scope) {
-		this.getUri('/api/event/{eventId}', function (data) {$rootScope.event=$scope.event=data;});
+		this.getUri('/api/event/{eventId}', function (data) {
+			$rootScope.event=$scope.event=data;
+		});
 	}
 
 	$rootScope.getUri = function(uri, callback, errorhandler, useCache) {

@@ -1,6 +1,6 @@
 (function () {
     var homeCtrl = function ($scope, $rootScope, $http, $cookieStore, $routeParams, $location) {
-        $scope.view = {};
+		$scope.view = {};
 		$scope.currentPage = 1;
 		$scope.pagination = 10;
 		$scope.news = {};
