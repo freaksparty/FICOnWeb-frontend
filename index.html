@@ -201,7 +201,7 @@
 				</div>
 				<!-- SPONSORS -->
 				<slick ng-cloak style="margin-top: 25px;" infinite="true" slides-to-show="4" slides-to-scroll="1" autoplay="true" arrows="false" data="event.sponsors" init-onload="true" ng-controller="homeCtrl"> <!--    -->
-					<div ng-repeat="sponsor in event.sponsors"><a href="{{sponsor.url}}"><img class="img-responsive" src="{{sponsor.imageurl}}" height="200" alt="{{sponsor.name}}"></a></div>
+					<div ng-repeat="sponsor in event.sponsors"><a ng-href="{{sponsor.url}}" class="slide-link"><img class="img-responsive" ng-src="{{sponsor.imageurl}}" height="200" alt="{{sponsor.name}}"></a></div>
 				</slick>
 			</div>
 		</div>

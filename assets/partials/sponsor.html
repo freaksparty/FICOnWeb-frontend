@@ -33,7 +33,7 @@
 				<th style="font-weight: 500;">{{sponsor.event}}</th>
 				<th style="font-weight: 500;">{{sponsor.name}}</th>
 				<th style="font-weight: 500;">{{sponsor.url}}</th>
-				<th style="font-weight: 500;"><img style="max-height: 100px;" src="{{sponsor.imageurl}}" width="100"></th>						
+				<th style="font-weight: 500;"><img style="max-height: 100px;" ng-src="{{sponsor.imageurl}}" width="100"></th>						
 				<th class="text-center"><a><i class="fa fa-pencil"></i></a>&emsp;<a data-toggle="modal" data-target="#modalDelete" ng-click="view.name = sponsor.name; view.id = sponsor.sponsorId"><i class="fa fa-ban"></i></a></th>
 			</tr>
 		</tbody>

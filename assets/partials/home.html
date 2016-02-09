@@ -9,7 +9,7 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-3" ng-show="news.imageurl">
-			<img class="img-responsive" src="{{news.imageurl}}">
+			<img class="img-responsive" ng-src="{{news.imageurl}}">
 		</div>
 		<div class="col-sm-9">
 			<span ng-bind-html="news.content"></span>
