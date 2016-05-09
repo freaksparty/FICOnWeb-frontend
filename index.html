@@ -6,9 +6,9 @@
 <!--<![endif]-->
 	<head>
 		<meta charset="utf-8" />
-		<title>FIC OnLan</title>
+		<title>FIC OnDev</title>
 		<meta name="keywords" content="LAN, party, lan party, galicia, Coruña, Coruna, FIC, Informatica, FIC OnLan" />
-		<meta name="description" content="FIC OnLan: Web de noticias y registro">
+		<meta name="description" content="FIC OnDev: Web de noticias y registro">
 		<meta name="author" content="Freaks Party">
 
 		<!-- mobile settings -->
@@ -94,9 +94,6 @@
 							<li class="active">
 								<a href="#/home">Inicio</a>
 							</li>
-							<li>
-								<a href="http://foro.ficonlan.es">Foro</a>
-							</li>
 							<li class="dropdown">
 								<a class="dropdown-toggle" href="#">Información<i class="fa fa-angle-down"></i></a>
 								<ul class="dropdown-menu">
@@ -106,26 +103,9 @@
 								</ul>
 							</li>
 							<li class="dropdown">
-								<a class="dropdown-toggle" href="#">Actividades<i class="fa fa-angle-down"></i></a>
+								<a class="dropdown-toggle" href="#">Talleres<i class="fa fa-angle-down"></i></a>
 								<ul class="dropdown-menu">
-									<li class="dropdown">
-										<a href="#">Torneos <i class="fa fa-angle-right"></i></a>
-										<ul class="dropdown-menu">
-											<li ng-repeat="t in event.tournaments"><a href="#/activity/tournament/{{t.activityId}}">{{t.name}}</a></li>
-										</ul>
-									</li>
-									<li class="dropdown">
-										<a href="#">Producciones <i class="fa fa-angle-right"></i></a>
-										<ul class="dropdown-menu">
-											<li ng-repeat="p in event.productions"><a href="#/activity/production/{{p.activityId}}">{{p.name}}</a></li>
-										</ul>
-									</li>
-									<li class="dropdown">
-										<a href="#">Conferencias <i class="fa fa-angle-right"></i></a>
-										<ul class="dropdown-menu">
-											<li ng-repeat="c in event.conferences"><a href="#/activity/conference/{{c.activityId}}">{{c.name}}</a></li>
-										</ul>
-									</li>
+									<li ng-repeat="w in event.workshops"><a href="#/activity/workshop/{{w.activityId}}">{{w.name}}</a></li>
 								</ul>
 							</li>
 							<li class="dropdown" ng-show="showAdmin()" ng-cloak>
@@ -157,7 +137,7 @@
 										</ul>
 									</li>
 									<li class="dropdown" ng-show="checkRole('ActivityController')">
-										<a href="#">Actividades <i class="fa fa-angle-right"></i></a>
+										<a href="#">Talleres <i class="fa fa-angle-right"></i></a>
 										<ul class="dropdown-menu">
 											<li><a href="#/admin/activities/add">Añadir</a></li>
 											<li><a href="#/admin/activities">Editar</a></li>

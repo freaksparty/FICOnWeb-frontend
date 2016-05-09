@@ -5,7 +5,7 @@
 		$scope.view.activity.image = "";
 		$scope.view.activity.name = "";
 		$scope.view.activity.description = "";
-		$scope.view.activity.type = "production";
+		$scope.view.activity.type = "workshop";
 		$scope.view.activity.oficial = false;
 		
 		
@@ -19,7 +19,7 @@
 				}).success(function (data, status, headers, config) {
 					$location.path("/home");
 				}).error(function (data, status, headers, config) {
-					console.log('Actividad  no creada');
+					console.log('Taller no creado');
 				});
 			} else {
 				console.log('Error activityaddCtrl.publish(): No hay cookie.');

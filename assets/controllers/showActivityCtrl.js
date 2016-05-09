@@ -9,9 +9,7 @@
 		}
 		
         $scope.ctr = function () {		
-			if ($routeParams.type == 'tournament') $scope.type = 'Torneo';
-			if ($routeParams.type == 'production') $scope.type = 'Producción';
-			if ($routeParams.type == 'conference') $scope.type = 'Conferencia';
+			if ($routeParams.type == 'workshop') $scope.type = 'Taller';
 			$scope.getActivity();
 		};
 

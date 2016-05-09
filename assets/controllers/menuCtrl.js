@@ -1,9 +1,7 @@
 (function () {
     var menuCtrl = function ($scope, $http, $cookieStore, $rootScope, $window, $location) {
 	$scope.data = {};
-	$scope.data.tournaments = [];
-	$scope.data.productions = [];
-	$scope.data.conferences = [];
+	$scope.data.workshops = [];
 	
 	$scope.logout = function () {
 		if ($cookieStore.get('FICOnCookie')) {

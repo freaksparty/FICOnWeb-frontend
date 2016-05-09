@@ -88,8 +88,8 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 	$rootScope.event = {};
 
 	$rootScope.config = eventConfig || {};
-	/*$rootScope.config.apiUrl = 'http://dev.ficonlan.es:8080';
-	$rootScope.config.eventId = 3;*/
+	$rootScope.config.apiUrl = 'http://localhost:8080';
+	$rootScope.config.eventId = 1;
 	
 	$rootScope.countdownhandler = null;
 
