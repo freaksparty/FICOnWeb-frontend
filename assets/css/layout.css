@@ -239,6 +239,9 @@ a, a:hover, a:active,
 	#header ul.nav li a i.fa {
 		margin-left:6px;
 	}
+	#header ul.nav li ul li a{
+		min-width: 250px;
+	}
 	#header ul.nav ul {
 		/*display:none;*/
 	}
@@ -255,7 +258,6 @@ a, a:hover, a:active,
 		.navbar-collapse.collapse {
 			
 		}
-
 	}
 		/** Top Menu #1
 		 ******************************* **/
@@ -1424,6 +1426,10 @@ div.e404 {
 	background-color:#ddd;
 }
 /** *** **/
+
+.slick-slider{
+	background-color: #CCC;
+}
 
 .slide-link {
 	line-height: 200px;

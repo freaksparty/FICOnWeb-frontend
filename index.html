@@ -102,10 +102,33 @@
 									<li><a href="mailto:contacto@freaksparty.org">Contacto</a></li>
 								</ul>
 							</li>
-							<li class="dropdown">
+							<li class="dropdown" ng-show="showWorkshops()">
 								<a class="dropdown-toggle" href="#">Talleres<i class="fa fa-angle-down"></i></a>
 								<ul class="dropdown-menu">
 									<li ng-repeat="w in event.workshops"><a href="#/activity/workshop/{{w.activityId}}">{{w.name}}</a></li>
+								</ul>
+							</li>
+							<li class="dropdown" ng-show="showConferences()">
+								<a class="dropdown-toggle" href="#">Conferencias<i class="fa fa-angle-down"></i></a>
+								<ul class="dropdown-menu">
+									<li ng-repeat="c in event.conferences"><a href="#/activity/conference/{{c.activityId}}">{{c.name}}</a></li>
+								</ul>
+							</li>
+							<li class="dropdown" ng-show="showActivitys()">
+								<a class="dropdown-toggle" href="#">Actividades<i class="fa fa-angle-down"></i></a>
+								<ul class="dropdown-menu">
+									<li class="dropdown">
+										<a href="#">Talleres<i class="fa fa-angle-right"></i></a>
+										<ul class="dropdown-menu">
+											<li ng-repeat="w in event.workshops"><a href="#/activity/workshop/{{w.activityId}}">{{w.name}}</a></li>
+										</ul>
+									</li>
+									<li class="dropdown">
+										<a href="#">Conferencias <i class="fa fa-angle-right"></i></a>
+										<ul class="dropdown-menu">
+											<li ng-repeat="c in event.conferences"><a href="#/activity/conference/{{c.activityId}}">{{c.name}}</a></li>
+										</ul>
+									</li>
 								</ul>
 							</li>
 							<li class="dropdown" ng-show="showAdmin()" ng-cloak>

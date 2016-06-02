@@ -8,8 +8,9 @@
 				    function (data, status, headers, config) {$scope.data = data;});
 		}
 		
-        $scope.ctr = function () {		
+        $scope.ctr = function () {	
 			if ($routeParams.type == 'workshop') $scope.type = 'Taller';
+			if ($routeParams.type == 'conference') $scope.type = 'Conferencia';
 			$scope.getActivity();
 		};
 

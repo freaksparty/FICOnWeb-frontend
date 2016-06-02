@@ -341,4 +341,31 @@ FICOnWeb.run(['$rootScope', '$http', '$cookieStore', '$location', '$window', fun
 		$http({url: uri,method:verb,data: data,headers:{"sessionId":$rootScope.getSessionId()}}).success(callback).error(errorhandler);
 	}
 
+	$rootScope.showWorkshops=function(){
+		if($rootScope.event.workshops!=undefined){
+			if($rootScope.event.workshops.length>0 && $rootScope.event.conferences.length==0){
+				return true;
+			}
+			return false;
+		}
+	}
+
+	$rootScope.showConferences=function(){
+		if($rootScope.event.conferences!=undefined){
+			if($rootScope.event.conferences.length>0 && $rootScope.event.workshops.length==0){
+				return true;
+			}
+			return false;
+		}
+	}
+
+	$rootScope.showActivitys=function(){
+		if($rootScope.event.conferences!=undefined){
+			if($rootScope.event.conferences.length>0 && $rootScope.event.workshops.length>0){
+				return true;
+			}
+			return false;
+		}
+	}
+
 }]);
