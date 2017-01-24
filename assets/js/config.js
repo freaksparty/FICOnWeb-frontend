@@ -1,4 +1,4 @@
 var eventConfig =  {
-  apiUrl : 'http://dev.ficonlan.es:8080',
-  eventId : 2
+  apiUrl : 'http://localhost:8080',
+  eventId : 1
 }

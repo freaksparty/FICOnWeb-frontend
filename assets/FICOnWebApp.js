@@ -59,7 +59,10 @@ FICOnWeb.config(function ($routeProvider) {
 		templateUrl: 'assets/partials/sponsor.html'
 	}).when('/admin/activities/add' , {
 		controller: 'activityaddCtrl',
-		templateUrl: 'assets/partials/activityadd.html'
+		templateUrl: 'assets/partials/activityeditor.html'
+	}).when('/admin/activities/:id' , {
+		controller: 'activityaddCtrl',
+		templateUrl: 'assets/partials/activityeditor.html'
 	})
 	.when('/admin/activities' , {
 		controller: 'activityCtrl',

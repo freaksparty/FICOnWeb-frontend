@@ -1,5 +1,5 @@
 (function () {
-    var activityaddCtrl = function ($scope, $rootScope, $http, $cookieStore, $log, $location) {
+    var activityaddCtrl = function ($scope, $rootScope, $http, $cookieStore, $log, $location, $routeParams) {
         $scope.view = {};
 		$scope.view.activity = {};
 		$scope.view.activity.image = "";
@@ -8,30 +8,47 @@
 		$scope.view.activity.type = "production";
 		$scope.view.activity.oficial = false;
 		
-		
 		$scope.publish = function (activity) {	
-			if ($cookieStore.get('FICOnCookie')) {
-				$http({
-					url: $rootScope.config.apiUrl + '/api/event/' + $rootScope.config.eventId + '/activity/',
-					method: "POST",
-					data: { "name" : activity.name, "imageurl" : activity.image, "description" : activity.description, "numParticipants" : 500, "oficial": activity.oficial, "type" : activity.type },
-					headers: { "sessionId" :  $cookieStore.get('FICOnCookie').sessionId }
-				}).success(function (data, status, headers, config) {
-					$location.path("/home");
-				}).error(function (data, status, headers, config) {
-					console.log('Actividad  no creada');
-				});
+			if($routeParams.id) {
+				$rootScope.postUri('/api/activity/'+$routeParams.id, 
+						{ "name" : activity.name, "imageurl" : activity.image, "description" : activity.description, "numParticipants" : 500, "oficial": activity.oficial, "type" : activity.type }, 
+									function(){
+										$location.path("/home");
+									},
+									function (data, status, headers, config) {
+										console.log('Actividad  no creada');
+									},
+									'PUT');
 			} else {
-				console.log('Error activityaddCtrl.publish(): No hay cookie.');
+				$rootScope.postUri('/api/activity', 
+						{ "name" : activity.name, "imageurl" : activity.image, "description" : activity.description, "numParticipants" : 500, "oficial": activity.oficial, "type" : activity.type }, 
+									function(){
+										$location.path("/home");
+									},
+									function (data, status, headers, config) {
+										console.log('Actividad  no creada');
+									});
 			}
+			
 		}
 
-        $scope.ctr = function () {
-		};
+		$scope.ctr = function () {
+			if($routeParams.id) {
+				$rootScope.getUri('/api/activity/' + $routeParams.id,function (data) {
+					$scope.view = {};
+					$scope.view.activity = {};
+					$scope.view.activity.image = data.imageurl;
+					$scope.view.activity.name = data.name;
+					$scope.view.activity.description = data.description;
+					$scope.view.activity.type = data.type;
+					$scope.view.activity.oficial = data.oficial;
+				});
+			}
+		}
 
         $scope.ctr();
     }
 
-    activityaddCtrl.$inject = ['$scope', '$rootScope', '$http', '$cookieStore', '$log', '$location'];
+    activityaddCtrl.$inject = ['$scope', '$rootScope', '$http', '$cookieStore', '$log', '$location', '$routeParams'];
     angular.module('FICOnWeb').controller('activityaddCtrl', activityaddCtrl);
 }());

@@ -3,6 +3,7 @@
 	$scope.view = {};
 	$scope.view.event = {};
 	$scope.view.event.name = "";
+	$scope.view.event.price = "0";
 	$scope.view.event.description = "";
 	$scope.view.event.normas = "";
 	$scope.view.event.registrationOpenDate;
@@ -55,6 +56,7 @@
 			$rootScope.getUri('/api/event/{eventId}', function(data) {
 				$scope.view.event.name = data.name;
 				$scope.view.event.normas = data.rules;
+				$scope.view.event.price = data.price;
 				$scope.view.event.description = data.description;
 				$scope.view.event.registrationOpenDate = data.openInscriptionDate;
 				$scope.view.registrationOpenDate = moment(data.openInscriptionDate, 'DD-MM-YYYY/HH:mm:ss').toDate();
