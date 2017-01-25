@@ -1,5 +1,5 @@
 (function () {
-    var activityCtrl = function ($scope, $rootScope, $cookieStore, $http) {
+    var activitiesAdminCtrl = function ($scope, $rootScope, $cookieStore, $http) {
         $scope.view = {};
 		$scope.data = {};
 		$scope.currentPage = 1;
@@ -98,6 +98,6 @@
         $scope.ctr();
     }
 
-    activityCtrl.$inject = ['$scope', '$rootScope', '$cookieStore', '$http'];
-    angular.module('FICOnWeb').controller('activityCtrl', activityCtrl);
+    activitiesAdminCtrl.$inject = ['$scope', '$rootScope', '$cookieStore', '$http'];
+    angular.module('FICOnWeb').controller('activitiesAdminCtrl', activitiesAdminCtrl);
 }());

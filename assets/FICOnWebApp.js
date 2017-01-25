@@ -46,7 +46,7 @@ FICOnWeb.config(function ($routeProvider) {
 	})
 	.when('/admin/news' , {
 		controller: 'adminNewsCtrl',
-		templateUrl: 'assets/partials/news.html'
+		templateUrl: 'assets/partials/newsAdmin.html'
 	})
 	.when('/admin/users' , {
 		controller: 'usersCtrl',
@@ -65,8 +65,8 @@ FICOnWeb.config(function ($routeProvider) {
 		templateUrl: 'assets/partials/activityeditor.html'
 	})
 	.when('/admin/activities' , {
-		controller: 'activityCtrl',
-		templateUrl: 'assets/partials/activity.html'
+		controller: 'activitiesAdminCtrl',
+		templateUrl: 'assets/partials/activitiesAdmin.html'
 	})
 	.when('/admin/registerEvent' , {
 		controller: 'registerEventCtrl',

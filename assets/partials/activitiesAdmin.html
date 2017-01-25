@@ -32,7 +32,7 @@
 				<th style="font-weight: 500;">{{activity.activityId}}</th>	
 				<th style="font-weight: 500;">{{activity.name}}</th>
 				<th style="font-weight: 500;">{{activity.type}}</th>
-				<th class="text-center"><a><i class="fa fa-pencil"></i></a>&emsp;<a ng-click="deleteActivity(activity.activityId)"><i class="fa fa-ban"></i></a></th>
+				<th class="text-center"><a href="#/admin/activities/{{activity.activityId}}"><i class="fa fa-pencil"></i></a>&emsp;<a ng-click="deleteActivity(activity.activityId)"><i class="fa fa-ban"></i></a></th>
 			</tr>
 		</tbody>
 	</table>
