@@ -41,12 +41,8 @@
             news.date = null;
         }
         
-        var path = '/api/news/';
-        if($routeParams.id) {
-            path += $routeParams.id;
-        }
-        
-        $rootScope.postUri(path,
+        $rootScope.postUri(
+          $routeParams.id?'/api/news/'+$routeParams.id:'/api/event/news/{eventId}/',
           { "title" : news.title, "imageurl" : news.image, "content" : news.content, "priorityHours" : 0, "publishDate": news.date }, 
           function(){
               $location.path("/home");
