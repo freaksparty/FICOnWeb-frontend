@@ -20,7 +20,7 @@
 									},
 									'PUT');
 			} else {
-				$rootScope.postUri('/api/activity', 
+				$rootScope.postUri('/api/event/{eventId}/activity/', 
 						{ "name" : activity.name, "imageurl" : activity.image, "description" : activity.description, "numParticipants" : 500, "oficial": activity.oficial, "type" : activity.type }, 
 									function(){
 										$location.path("/home");
